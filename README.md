@@ -11,17 +11,29 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
   * Web Client - React
   * API - Node / Express
   * Database Connection
+  * Configure S3 storage for assets/images
 - Enhance app for prod deployment
 - Configure AWS Architecture
-- Update api for S3 storage of assets
-- Update api for modules
-- Update api for redis
+
+### v0.2.0
 - Dockerize app
+
+### v0.3.0
+- Update api for modules
+
+### v0.4.0
+- Update api for redis
+
+### v0.5.0
 - Update web client for scss
 - Web client - responsive updates
 - Web client - animations
+
+### v0.6.0
 - Update api for typescript
 - Update web client for typescript
+
+### v0.7.0
 - Web client - formik testing?
 
 # Get started
@@ -70,6 +82,7 @@ I want to keep the code in the same repo, but I do not want to deploy it to the 
 Nothing for now! The plan is to use Amplify for the web client and more of AWS for the backend architecture.
 
 # Collaborators
-> Include: Person / Role / Contact Info / Timezone
+
 | Name | Role | Contact | Timezone |
+| --- | --- | --- | --- |
 | Erik J Brown | Developer | erkjbro@erikjbrown.tech | USA (GMT-5) |
