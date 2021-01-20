@@ -1,7 +1,10 @@
 {
   "name": "web-client",
   "version": "0.1.0",
-  "private": true,
+  "description": "Demo blogging app built with the MERN stack.",
+  "repository": "https://github.com/erkjbro/verbose-octo-blog.git",
+  "author": "Erik J Brown <erkjbro@erikjbrown.tech>",
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

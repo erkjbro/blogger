@@ -1,0 +1,17 @@
+{
+  "name": "verbose-octo-blog",
+  "version": "0.1.0",
+  "description": "Demo blogging app built with the MERN stack.",
+  "main": "index.js",
+  "repository": "https://github.com/erkjbro/verbose-octo-blog.git",
+  "author": "Erik J Brown <erkjbro@erikjbrown.tech>",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  },
+  "scripts": {
+    "client": "yarn --cwd web-client start",
+    "server": "yarn --cwd node-api run dev",
+    "start": "concurrently \"yarn run server\" \"yarn run client\""
+  }
+}
