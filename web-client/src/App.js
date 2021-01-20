@@ -25,9 +25,7 @@ const App = () => {
   return (
     <div>
       <h1>Verbose Octo Blog</h1>
-      {response && (
-        <p>{response.message}</p>
-      )}
+      <p>Node API message: <code>{response ? response.message : 'null'}</code></p>
     </div>
   );
 }
