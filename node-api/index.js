@@ -1,10 +1,24 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 
 // dotenv testing
 console.log(process.env.NODE_ENV);
+
+// testing top level await for db connection.
+try {
+  await mongoose.connect(
+    process.env.DB_URI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  );
+} catch (err) {
+  throw new Error(err);
+}
 
 app.use(bodyParser.json());
 
