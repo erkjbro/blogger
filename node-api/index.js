@@ -2,6 +2,8 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 
+const PORT = Number(process.env.PORT) || 5000;
+
 const app = express();
 
 try {
@@ -13,7 +15,9 @@ try {
     }
   );
 } catch (err) {
-  throw new Error(err);
+  const error = new Error(err);
+  error.statusCode = 503;
+  throw error;
 }
 
 app.use(bodyParser.json());
@@ -34,24 +38,28 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// Routes Go Here
 
 app.use((req, res, next) => {
-  res.status(404).json({ message: 'Sorry, I don\'t have that...' });
+  const error = new Error('Sorry, I don\'t seem to have that route...');
+  error.statusCode = 404;
+  next(error);
 });
 
 app.use((err, req, res, next) => {
   const { stack, statusCode, message, data } = err;
-
   console.error(stack);
 
+  if (res.headersSent) {
+    return next(err);
+  }
+
   res.status(statusCode || 500).json({
-    message,
-    data
+    message: message || 'Something broke on our side!',
+    data: data || null
   });
 });
 
-const PORT = Number(process.env.PORT) || 5000;
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}...`)
 });
