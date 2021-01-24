@@ -15,25 +15,22 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
 - Enhance app for prod deployment
 - Configure AWS Architecture
 
-### v0.2.0
+### v0.x.0
 - Dockerize app
 
-### v0.3.0
-- Update api for modules
-
-### v0.4.0
+### v0.x.0
 - Update api for redis
 
-### v0.5.0
+### v0.x.0
 - Update web client for scss
 - Web client - responsive updates
 - Web client - animations
 
-### v0.6.0
+### v0.x.0
 - Update api for typescript
 - Update web client for typescript
 
-### v0.7.0
+### v0.x.0
 - Web client - formik testing?
 
 # Get started
@@ -55,7 +52,7 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
  **Project Structure:**
 
  > Add comments about the project's format for its structure.
- 
+
 I want to keep the code in the same repo, but I do not want to deploy it to the same EC2 instance. Maybe I'll add concurrently in the root directory so that it's easier for others to get started and try the code.
 
 # Development Workflow
