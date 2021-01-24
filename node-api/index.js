@@ -4,10 +4,6 @@ import mongoose from 'mongoose';
 
 const app = express();
 
-// dotenv testing
-console.log(process.env.NODE_ENV);
-
-// testing top level await for db connection.
 try {
   await mongoose.connect(
     process.env.DB_URI,
