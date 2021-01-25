@@ -2,8 +2,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import blogRoutes from './routes/blog.js';
-import userRoutes from './routes/user.js';
+import blogRoutes from './routes/blogs.js';
+import userRoutes from './routes/users.js';
 import HttpError from './models/http-error.js';
 
 const PORT = Number(process.env.PORT) || 5000;
@@ -43,8 +43,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/blog', blogRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/users', userRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError('Sorry, I don\'t seem to have that route...', 404);
