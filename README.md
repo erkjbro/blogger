@@ -22,7 +22,6 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
 - Update api for redis
 
 ### v0.x.0
-- Update web client for scss
 - Web client - responsive updates
 - Web client - animations
 
