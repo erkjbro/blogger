@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 
 import blogRoutes from './routes/blog.js';
 import userRoutes from './routes/user.js';
+import HttpError from './models/http-error.js';
 
 const PORT = Number(process.env.PORT) || 5000;
 
@@ -18,9 +19,7 @@ try {
     }
   );
 } catch (err) {
-  const error = new Error(err);
-  error.statusCode = 503;
-  throw error;
+  throw new HttpError(err, 503);
 }
 
 // app.use(bodyParser.json({
@@ -48,8 +47,7 @@ app.use('/api/blog', blogRoutes);
 app.use('/api/user', userRoutes);
 
 app.use((req, res, next) => {
-  const error = new Error('Sorry, I don\'t seem to have that route...');
-  error.statusCode = 404;
+  const error = new HttpError('Sorry, I don\'t seem to have that route...', 404);
   next(error);
 });
 
