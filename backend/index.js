@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import blogRoutes from './routes/blog.js';
+import userRoutes from './routes/user.js';
 
 const PORT = Number(process.env.PORT) || 5000;
 
@@ -43,8 +44,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes Go Here
 app.use('/api/blog', blogRoutes);
+app.use('/api/user', userRoutes);
 
 app.use((req, res, next) => {
   const error = new Error('Sorry, I don\'t seem to have that route...');
