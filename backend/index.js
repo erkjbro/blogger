@@ -1,6 +1,8 @@
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
+
+import blogRoutes from './routes/blog.js';
 
 const PORT = Number(process.env.PORT) || 5000;
 
@@ -20,7 +22,10 @@ try {
   throw error;
 }
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json({
+//   limit: '50kb',
+//   verify: (req, res, buf, encoding) => console.log(encoding)
+// }));
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -39,6 +44,7 @@ app.use((req, res, next) => {
 });
 
 // Routes Go Here
+app.use('/api/blog', blogRoutes);
 
 app.use((req, res, next) => {
   const error = new Error('Sorry, I don\'t seem to have that route...');
