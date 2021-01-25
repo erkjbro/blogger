@@ -10,8 +10,8 @@
     "concurrently": "^5.3.0"
   },
   "scripts": {
-    "client": "yarn --cwd web-client start",
-    "server": "yarn --cwd node-api run dev",
-    "start": "concurrently \"yarn run server\" \"yarn run client\""
+    "frontend": "yarn --cwd frontend start",
+    "backend": "yarn --cwd backend run dev",
+    "start": "concurrently \"yarn run backend\" \"yarn run frontend\""
   }
 }

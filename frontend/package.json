@@ -1,5 +1,5 @@
 {
-  "name": "web-client",
+  "name": "vob-web-client",
   "version": "0.1.0",
   "description": "Demo blogging app built with the MERN stack.",
   "repository": "https://github.com/erkjbro/verbose-octo-blog.git",

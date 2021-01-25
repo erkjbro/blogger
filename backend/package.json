@@ -1,5 +1,5 @@
 {
-  "name": "node-api",
+  "name": "vob-api",
   "version": "0.1.0",
   "type": "module",
   "description": "Demo blogging app built with the MERN stack.",
