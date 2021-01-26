@@ -1,4 +1,4 @@
-// import bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 
@@ -22,10 +22,10 @@ try {
   throw new HttpError(err, 503);
 }
 
-// app.use(bodyParser.json({
-//   limit: '50kb',
-//   verify: (req, res, buf, encoding) => console.log(encoding)
-// }));
+app.use(bodyParser.json({
+  limit: '50kb',
+  verify: (req, res, buf, encoding) => console.log(encoding)
+}));
 
 app.use((req, res, next) => {
   res.setHeader(
