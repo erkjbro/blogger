@@ -1,22 +1,44 @@
+import HttpError from '../models/http-error';
+import User from '../models/user';
 
-let DUMMY_USERS = [
-  {
-    id: 'u1',
-    name: 'Erik Brown',
-    email: 'erik@example.com',
-    password: 'password'
-  },
-  {
-    id: 'u2',
-    name: 'Super User',
-    email: 'user@example.com',
-    password: 'supersecret'
-  }
-];
+export const getUsers = async (req, res, next) => {
+  // Find users w/o password
+  // Fetch fails - 500
 
-export const getUsers = (req, res, next) => {
-  res.status(200).json({
-    message: "Fetched Users!",
-    data: DUMMY_USERS
-  });
+  // Respond w/ user data
+};
+
+export const postSignup = async (req, res, next) => {
+  // Express Validation... or this might go in the route instead.
+
+  // Get data from the body
+
+  // Check if user exists already
+  // Error - 500
+  // Compare - User already exists - 422
+
+  // Hash Password w/ bcrypt
+
+  // Create User w/ model
+
+  // Save new user to db
+  // Error - 500
+
+  // Sign JWT
+  // token error - 500
+
+  // Respond w/ 201 - userId, email, token
+};
+
+export const postLogin = async (req, res, next) => {
+  // Express Validation... or this might go in the route instead.
+
+  // Check if user exists
+
+  // Compare passwords
+  // Invalid credentials - 401
+
+  // Sign JWT
+
+  // Respond w/ userId, email, token
 };
