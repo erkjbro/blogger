@@ -17,6 +17,6 @@ let DUMMY_USERS = [
 export const getUsers = (req, res, next) => {
   res.status(200).json({
     message: "Fetched Users!",
-    users: DUMMY_USERS
+    data: DUMMY_USERS
   });
 };

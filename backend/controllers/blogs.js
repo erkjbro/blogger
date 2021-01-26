@@ -17,6 +17,6 @@ let DUMMY_BLOGS = [
 export const getBlogs = (req, res, next) => {
   res.status(200).json({
     message: 'Fetched blogs!',
-    blogs: DUMMY_BLOGS
+    data: DUMMY_BLOGS
   });
 };
