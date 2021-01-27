@@ -14,15 +14,19 @@ router.post(
   '/signup',
   [
     check('name')
+      .trim()
       .not()
       .isEmpty(),
 
     check('email')
       .normalizeEmail()
-      .isEmail(),
+      .isEmail()
+      .withMessage('Please enter a valid email.'),
 
     check('password')
+      .trim()
       .isLength({ min: 6 })
+      .isAlphanumeric()
   ],
   userController.postSignup
 );
@@ -35,6 +39,8 @@ router.post(
       .isEmail(),
 
     check('password')
+      .trim()
+      .isAlphanumeric()
       .not()
       .isEmpty()
   ],
