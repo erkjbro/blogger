@@ -11,7 +11,7 @@ const userSchema = Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true // collection.ensureIndex is deprecated.
   },
   password: {
     type: String,
@@ -25,6 +25,6 @@ const userSchema = Schema({
   }]
 });
 
-userSchema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.'});
 
 export default model('User', userSchema);
