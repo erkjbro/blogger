@@ -17,7 +17,7 @@ const blogSchema = new Schema({
     required: true
   }
 }, {
-  timestamps
+  timestamps: true
 });
 
 export default model('Blog', blogSchema);
