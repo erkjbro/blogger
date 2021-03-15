@@ -2,10 +2,22 @@ import HttpError from '../models/http-error.js';
 import User from '../models/user.js';
 
 export const getUsers = async (req, res, next) => {
-  // Find users w/o password
-  // Fetch fails - 500
+  let users;
+  try {
+    // Find users w/o password
+    users = await User.find({}, '-password');
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching users failed; please try again later.',
+      500
+    );
+    return next(error);
+  }
 
   // Respond w/ user data
+  res.json({
+    users: users.map(user => user.toObject({ getters: true }))
+  });
 };
 
 export const postSignup = async (req, res, next) => {
