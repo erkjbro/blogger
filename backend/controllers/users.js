@@ -102,13 +102,66 @@ export const postSignup = async (req, res, next) => {
 
 export const postLogin = async (req, res, next) => {
   // Express Validation... or this might go in the route instead.
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    console.error(errors);
+    const error = new HttpError(
+      'Invalid inputs passed; Please check your data.',
+      422
+    )
+    return next(error);
+  }
+
+  // Get data from the body
+  const { email, password } = req.body;
 
   // Check if user exists
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      const error = new HttpError(
+        'Invalid credentials; could not login.',
+        422
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Login failed; please try again later.',
+      500
+    );
+    return next(error);
+  }
 
   // Compare passwords
-  // Invalid credentials - 401
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+
+    if (!isValidPassword) {
+      // Invalid credentials - 401
+      const error = new HttpError(
+        'Invalid credentials; could not login.',
+        401
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Could not login; please check your credentials and try again.',
+      500
+    );
+    return next(error);
+  }
 
   // Sign JWT
 
   // Respond w/ userId, email, token
+  res.json({
+    userId: existingUser.id,
+    email: existingUser.email
+  });
 };
