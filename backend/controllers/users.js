@@ -1,3 +1,6 @@
+import bcrypt from 'bcryptjs';
+import { validationResult } from 'express-validator';
+
 import HttpError from '../models/http-error.js';
 import User from '../models/user.js';
 
@@ -21,25 +24,80 @@ export const getUsers = async (req, res, next) => {
 };
 
 export const postSignup = async (req, res, next) => {
-  // Express Validation... or this might go in the route instead.
+  // Express Validation... but this might go in the route instead.
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    console.error(errors);
+    const error = new HttpError(
+      'Invalid inputs passed; Please check your data.',
+      422
+    );
+    return next(error);
+  }
 
   // Get data from the body
+  const { name, email, password } = req.body;
 
   // Check if user exists already
-  // Error - 500
-  // Compare - User already exists - 422
+  try {
+    const existingUser = await User.findOne({ email });
+
+    // Compare - User already exists - 422
+    if (existingUser) {
+      const error = new HttpError(
+        'User exists already; please login instead.',
+        422
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Signup failed; please try again later.',
+      500
+    );
+    return next(error);
+  }
 
   // Hash Password w/ bcrypt
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hash(password, 12);
+  } catch (err) {
+    const error = new HttpError(
+      'Singup failed; please try again.',
+      500
+    );
+    return next(error);
+  }
 
   // Create User w/ model
+  const createdUser = new User({
+    name,
+    email,
+    password: hashedPassword,
+    blogs: []
+  });
 
   // Save new user to db
-  // Error - 500
+  try {
+    await createdUser.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Signup failed; please try again.',
+      500
+    );
+    return next(error);
+  }
 
   // Sign JWT
-  // token error - 500
+  // Token will be implemented later.
 
   // Respond w/ 201 - userId, email, token
+  res.status(201).json({
+    userId: createdUser.id,
+    email: createdUser.email
+  });
 };
 
 export const postLogin = async (req, res, next) => {
