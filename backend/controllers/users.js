@@ -5,9 +5,9 @@ import HttpError from '../models/http-error.js';
 import User from '../models/user.js';
 
 export const getUsers = async (req, res, next) => {
+  // Find users w/o password
   let users;
   try {
-    // Find users w/o password
     users = await User.find({}, '-password');
   } catch (err) {
     const error = new HttpError(
