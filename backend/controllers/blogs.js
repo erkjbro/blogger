@@ -45,21 +45,74 @@ export const getBlogsByUserId = async (req, res, next) => {
 
 export const postBlog = async (req, res, next) => {
   // Express validation
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const error = new HttpError(
+      'Check your data!',
+      422
+    );
+    return next(error);
+  }
 
   // Extract data from body
-  // Extract uid from user data
+  const { title, content } = req.body;
+  // Extract userId from user data
+  const { userId } = req.userData;
 
   // Create new blog w/ model
+  const createdBlog = new Blog({
+    title,
+    content,
+    creator: userId
+  });
 
   // Find user
+  let user;
+  try {
+    user = await User.findById(userId);
 
-  // Create mongoose session and start transaction
-  // save blog
-  // add blog to user
-  // save user
-  // commit transaction
+    if (!user) {
+      const error = new HttpError(
+        'Could not find a user for this id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Creating blog failed; please try again later.',
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    // Create mongoose session and start transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    // save blog
+    await createdBlog.save({ session });
+
+    // add blog to user
+    user.blogs.push(createdBlog);
+
+    // save user
+    await user.save({ session });
+
+    // commit transaction to save data to db
+    await session.commitTransaction();
+  } catch (err) {
+    const error = new HttpError(
+      'Creating blog failed; please try again later.',
+      500
+    );
+    return next(error);
+  }
 
   // Return message and new blog data
+  res.status(201).json({ blog: createdBlog });
 };
 
 export const patchBlog = async (req, res, next) => {
