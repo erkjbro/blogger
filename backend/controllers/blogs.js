@@ -57,13 +57,35 @@ export const getBlogById = async (req, res, next) => {
 };
 
 export const getBlogsByUserId = async (req, res, next) => {
-  // Extract user id from params
+  // Extract userId from params
+  const { userId } = req.params;
 
-  // Find user w/ uid and populate their blog data
+  // Find user matching userId and populate their blog data
+  let blogUser;
+  try {
+    blogUser = await User.findById(userId).populate('blogs');
 
-  // Verify that blogs / user were found
+    // Verify that user exists and has blogs
+    if (!blogUser || blogUser.blogs.length === 0) {
+      const error = new HttpError(
+        'Could not find blogs for the provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
-  // Return blogs for specified uid
+  // Return blogs for specified userId
+  res.json({
+    message: "Fetched blogs by userId successfully!",
+    data: blogUser.blogs.map(blog => blog.toObject({ getters: true }))
+  });
 };
 
 export const postBlog = async (req, res, next) => {

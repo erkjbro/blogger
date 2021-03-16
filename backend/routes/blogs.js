@@ -16,6 +16,11 @@ router.get(
   blogController.getBlogById
 );
 
+router.get(
+  '/user/:userId',
+  blogController.getBlogsByUserId
+)
+
 router.use(checkAuth);
 
 router.post(
