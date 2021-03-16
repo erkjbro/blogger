@@ -27,10 +27,33 @@ export const getBlogs = async (req, res, next) => {
 
 export const getBlogById = async (req, res, next) => {
   // Extract blog id from params
+  const { blogId } = req.params;
 
   // Find blog matching bid
+  let blog;
+  try {
+    blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      const error = new HttpError(
+        'Could not find a blog for the provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
   // Return data
+  res.status(200).json({
+    message: "Fetched blog by id successfully!",
+    data: blog.toObject({ getter: true })
+  });
 };
 
 export const getBlogsByUserId = async (req, res, next) => {
