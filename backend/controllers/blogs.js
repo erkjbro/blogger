@@ -4,7 +4,6 @@ import { validationResult } from 'express-validator';
 import HttpError from '../models/http-error.js';
 import Blog from '../models/blog.js';
 import User from '../models/user.js';
-import blog from '../models/blog.js';
 
 export const getBlogs = async (req, res, next) => {
   // Find blogs - maybe add pagination later
