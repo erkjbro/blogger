@@ -2,7 +2,7 @@ import express from 'express';
 import { check } from 'express-validator';
 
 import * as blogController from '../controllers/blogs.js';
-// need to add a middleware for auth checks
+import checkAuth from '../middleware/check-auth.js';
 
 const router = express.Router();
 
@@ -15,6 +15,8 @@ router.get(
   '/:blogId',
   blogController.getBlogById
 );
+
+router.use(checkAuth);
 
 router.post(
   '/',
