@@ -157,7 +157,10 @@ export const postBlog = async (req, res, next) => {
   }
 
   // Return message and new blog data
-  res.status(201).json({ blog: createdBlog });
+  res.status(201).json({
+    message: "Created new blog successfully!",
+    data: createdBlog
+  });
 };
 
 export const patchBlog = async (req, res, next) => {
