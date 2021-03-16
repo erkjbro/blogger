@@ -236,19 +236,67 @@ export const patchBlog = async (req, res, next) => {
 };
 
 export const deleteBlog = async (req, res, next) => {
-  // Extract blog id from params
+  // Extract blogId from params
+  const { blogId } = req.params;
 
-  // Find blog w/ bid and populate author data
+  // Find blog with blogId and populate creator data
+  let blog;
+  try {
+    blog = await Blog.findById(blogId).populate('creator');
+
+    if (!blog) {
+      const error = new HttpError(
+        'Could not find blog with provided id!',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
   // Extract user id from user data
+  const { userId } = req.userData;
 
   // Verify authZ
+  if (blog.creator.id !== userId) {
+    const error = new HttpError(
+      'You are not allowed to delete this blog.',
+      401
+    );
+    return next(error);
+  }
 
-  // Create mongoose session and start transaction
-  // remove blog
-  // pull blog from author blogs
-  // save author data
-  // commit transaction
+  try {
+    // Create mongoose session and start transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    // Remove blog
+    await blog.remove({ session });
+
+    // Pull blog from creator blogs
+    blog.creator.blogs.pull(blog);
+
+    // Save creator data
+    await blog.creator.save({ session });
+
+    // Commit transaction and save data to db
+    await session.commitTransaction();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
   // Return message
+  res.json({
+    message: "Deleted a blog successfully!"
+  });
 };
