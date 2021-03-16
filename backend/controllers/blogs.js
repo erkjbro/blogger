@@ -21,7 +21,7 @@ export const getBlogs = async (req, res, next) => {
 
   // Return message and all blogs
   res.status(200).json({
-    message: 'Fetched blogs!',
+    message: 'Fetched blogs successfully!',
     data: blogs
   });
 };

@@ -19,7 +19,8 @@ export const getUsers = async (req, res, next) => {
 
   // Respond w/ user data
   res.json({
-    users: users.map(user => user.toObject({ getters: true }))
+    message: "Found users succesfully!",
+    data: users.map(user => user.toObject({ getters: true }))
   });
 };
 
@@ -95,8 +96,11 @@ export const postSignup = async (req, res, next) => {
 
   // Respond w/ 201 - userId, email, token
   res.status(201).json({
-    userId: createdUser.id,
-    email: createdUser.email
+    message: "Signup completed successfully!",
+    data: {
+      userId: createdUser.id,
+      email: createdUser.email
+    }
   });
 };
 
@@ -161,7 +165,10 @@ export const postLogin = async (req, res, next) => {
 
   // Respond w/ userId, email, token
   res.json({
-    userId: existingUser.id,
-    email: existingUser.email
+    message: "Login completed successfully!",
+    data: {
+      userId: existingUser.id,
+      email: existingUser.email
+    }
   });
 };
