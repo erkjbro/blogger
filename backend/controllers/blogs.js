@@ -4,6 +4,7 @@ import { validationResult } from 'express-validator';
 import HttpError from '../models/http-error.js';
 import Blog from '../models/blog.js';
 import User from '../models/user.js';
+import blog from '../models/blog.js';
 
 export const getBlogs = async (req, res, next) => {
   // Find blogs - maybe add pagination later
@@ -165,20 +166,73 @@ export const postBlog = async (req, res, next) => {
 
 export const patchBlog = async (req, res, next) => {
   // Express validation
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const error = new HttpError(
+      'Invalid inputs passed; Check your data.',
+      422
+    );
+    return next(error);
+  }
 
   // Extract data from body
+  const { title, content } = req.body;
   // Extract blog id from params
+  const { blogId } = req.params;
 
   // Find blog in database
+  let blog;
+  try {
+    blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      const error = new HttpError(
+        'Could not find blog with provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
   // Extract user id from user data
+  const { userId } = req.userData;
+
   // Verify authZ
+  if (blog.creator.toString() !== userId) {
+    const error = new HttpError(
+      'You are not allowed to edit this blog.',
+      401
+    );
+    return next(error);
+  }
 
   // update blog data
+  blog.title = title;
+  blog.content = content;
 
-  // save blog
+  // save updated blog
+  try {
+    await blog.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
-  // Return message and update blog data
+  // Return message and updated blog data
+  res.json({
+    message: "Blog updated successfully!",
+    data: blog.toObject({ getters: true })
+  });
 };
 
 export const deleteBlog = async (req, res, next) => {
