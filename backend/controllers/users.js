@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 
 import HttpError from '../models/http-error.js';
@@ -92,14 +93,33 @@ export const postSignup = async (req, res, next) => {
   }
 
   // Sign JWT
-  // Token will be implemented later.
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        userId: createdUser.id,
+        email: createdUser.email
+      },
+      process.env.JWT_KEY,
+      {
+        expiresIn: '1h'
+      }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong; please try again.',
+      500
+    );
+    return next(error);
+  }
 
   // Respond w/ 201 - userId, email, token
   res.status(201).json({
     message: "Signup completed successfully!",
     data: {
       userId: createdUser.id,
-      email: createdUser.email
+      email: createdUser.email,
+      token
     }
   });
 };
