@@ -19,3 +19,4 @@ refer to the Mongoose documentation for more information.
 - NODE_ENV
 - PORT
 - DB_URI
+- JWT_KEY
