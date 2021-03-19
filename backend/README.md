@@ -12,3 +12,4 @@ Nothing to report now, but this will explain how to configure your environment v
 - NODE_ENV
 - PORT
 - DB_URI
+- JWT_KEY
