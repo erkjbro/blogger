@@ -11,7 +11,7 @@ const userSchema = Schema({
   email: {
     type: String,
     required: true,
-    unique: true // collection.ensureIndex is deprecated.
+    unique: true
   },
   password: {
     type: String,

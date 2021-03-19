@@ -14,7 +14,8 @@ try {
     process.env.DB_URI,
     {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useCreateIndex: true
     }
   );
 } catch (err) {
