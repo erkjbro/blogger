@@ -182,13 +182,33 @@ export const postLogin = async (req, res, next) => {
   }
 
   // Sign JWT
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        userId: existingUser.id,
+        email: existingUser.email
+      },
+      process.env.JWT_KEY,
+      {
+        expiresIn: '1h'
+      }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong; please try again.',
+      500
+    );
+    return next(error);
+  }
 
   // Respond w/ userId, email, token
   res.json({
     message: "Login completed successfully!",
     data: {
       userId: existingUser.id,
-      email: existingUser.email
+      email: existingUser.email,
+      token
     }
   });
 };
