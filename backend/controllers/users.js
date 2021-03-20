@@ -251,7 +251,7 @@ export const getUserById = async (req, res, next) => {
   // Return data matching specified user
   res.json({
     message: "Found user successfully!",
-    data: user
+    data: user.toObject({ getters: true })
   });
 };
 
