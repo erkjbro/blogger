@@ -193,26 +193,6 @@ export const postLogin = async (req, res, next) => {
   });
 };
 
-export const getUsers = async (req, res, next) => {
-  // Find users w/o password
-  let users;
-  try {
-    users = await User.find({}, '-password');
-  } catch (err) {
-    const error = new HttpError(
-      'Fetching users failed; please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  // Respond w/ user data
-  res.json({
-    message: "Found users succesfully!",
-    data: users.map(user => user.toObject({ getters: true }))
-  });
-};
-
 export const getUserById = async (req, res, next) => {
   // Extract userId from params
   const { userId } = req.params;
