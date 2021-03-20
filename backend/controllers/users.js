@@ -5,26 +5,6 @@ import { validationResult } from 'express-validator';
 import HttpError from '../models/http-error.js';
 import User from '../models/user.js';
 
-export const getUsers = async (req, res, next) => {
-  // Find users w/o password
-  let users;
-  try {
-    users = await User.find({}, '-password');
-  } catch (err) {
-    const error = new HttpError(
-      'Fetching users failed; please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  // Respond w/ user data
-  res.json({
-    message: "Found users succesfully!",
-    data: users.map(user => user.toObject({ getters: true }))
-  });
-};
-
 export const postSignup = async (req, res, next) => {
   // Express Validation... but this might go in the route instead.
   const errors = validationResult(req);
@@ -211,4 +191,74 @@ export const postLogin = async (req, res, next) => {
       token
     }
   });
+};
+
+export const getUsers = async (req, res, next) => {
+  // Find users w/o password
+  let users;
+  try {
+    users = await User.find({}, '-password');
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching users failed; please try again later.',
+      500
+    );
+    return next(error);
+  }
+
+  // Respond w/ user data
+  res.json({
+    message: "Found users succesfully!",
+    data: users.map(user => user.toObject({ getters: true }))
+  });
+};
+
+export const getUserById = async (req, res, next) => {
+  // Extract userId from params
+  const { userId } = req.params;
+
+  // Find user with provided id
+  let user;
+  try {
+    user = await User.findById(userId, '-password');
+
+    // Verify user was found
+    if (!user) {
+      const error = new HttpError(
+        'User could not be found with the provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wong; please try again.',
+      500
+    );
+    return next(error);
+  }
+
+  // Verify AuthZ
+  const uid = req.userData.userId;
+  if (user.id !== uid) {
+    const error = new HttpError(
+      'You are not allowed to view this data.',
+      401
+    );
+    return next(error);
+  }
+
+  // Return data matching specified user
+  res.json({
+    message: "Found user successfully!",
+    data: user
+  });
+};
+
+export const patchUser = async (req, res, next) => {
+
+};
+
+export const deleteUser = async (req, res, next) => {
+
 };
