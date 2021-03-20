@@ -236,9 +236,31 @@ export const getUserById = async (req, res, next) => {
 };
 
 export const patchUser = async (req, res, next) => {
+  // Express validation
 
+  // Extract data from body
+  // Extract userId from params
+
+  // Find user in database
+
+  // Verify AuthZ
+
+  // Update user data
+
+  // Return message and updated user data
 };
 
 export const deleteUser = async (req, res, next) => {
+  // Extract userId from params
 
+  // Find user in database & populate blogs (?)
+
+  // Verify AuthZ
+
+  // Create session and start transaction
+  // Remove blogs
+  // Delete user
+  // Commit transaction
+
+  // Return success message
 };
