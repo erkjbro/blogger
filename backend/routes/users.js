@@ -50,4 +50,19 @@ router.get(
   userController.getUserById
 );
 
+router.patch(
+  '/:userId',
+  [
+    check('name')
+      .trim(),
+
+    check('email')
+      .normalizeEmail()
+      .isEmail()
+  ],
+  userController.patchUser
+);
+
+
+
 export default router;

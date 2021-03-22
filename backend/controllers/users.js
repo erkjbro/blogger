@@ -237,17 +237,92 @@ export const getUserById = async (req, res, next) => {
 
 export const patchUser = async (req, res, next) => {
   // Express validation
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const error = new HttpError(
+      'Check your data!',
+      403
+    );
+    return next(error);
+  }
 
   // Extract data from body
+  const { name, email } = req.body;
   // Extract userId from params
+  const { userId } = req.params;
 
   // Find user in database
+  let user;
+  try {
+    user = await User.findById(userId);
 
-  // Verify AuthZ
+    if (!user) {
+      const error = new HttpError(
+        'Could not find user with provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong.',
+      500
+    );
+    return next(error);
+  }
+
+  // Extract user id from user data
+  const uid = req.userData.userId;
+
+  // Verify authZ
+  if (user.id.toString() !== uid) {
+    const error = new HttpError(
+      'You are not allowed to access this data.',
+      401
+    );
+    return next(error);
+  }
 
   // Update user data
+  user.name = name;
+  try {
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      const error = new HttpError(
+        'Email already in use; could not be changed.',
+        422
+      );
+      return next(error);
+    } else {
+      user.email = email;
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
+
+
+  // Save updated user
+  try {
+    await user.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
   // Return message and updated user data
+  res.json({
+    message: "Updated user data successfully!",
+    data: user
+  });
 };
 
 export const deleteUser = async (req, res, next) => {
