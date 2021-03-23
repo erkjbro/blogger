@@ -364,13 +364,17 @@ export const deleteUser = async (req, res, next) => {
   }
 
   try {
+    // Create session and start transaction
     const session = await mongoose.startSession();
     session.startTransaction();
 
+    // Removing user
     await user.remove({ session });
 
+    // Deleting all blogs created by the deleted user
     await Blog.deleteMany({ creator: userId }).session(session);
 
+    // Commit transaction and save data to db
     await session.commitTransaction();
   } catch (err) {
     const error = new HttpError(
