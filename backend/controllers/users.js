@@ -5,6 +5,7 @@ import { validationResult } from 'express-validator';
 
 import HttpError from '../models/http-error.js';
 import User from '../models/user.js';
+import Blog from '../models/blog.js';
 
 export const postSignup = async (req, res, next) => {
   // Express Validation... but this might go in the route instead.
@@ -332,8 +333,10 @@ export const deleteUser = async (req, res, next) => {
 
   // Find user in database & populate blogs (?)
   let user;
+  let blogs;
   try {
-    user = await User.findById(userId);
+    user = await User.findById(userId).populate('blogs');
+    blogs = await Blog.find({ creator: userId });
 
     if (!user) {
       const error = new HttpError(
@@ -361,21 +364,13 @@ export const deleteUser = async (req, res, next) => {
   }
 
   try {
-    // Create session and start transaction
     const session = await mongoose.startSession();
     session.startTransaction();
 
-    // Remove user
-    console.log('[delete]', user);
     await user.remove({ session });
 
-    // Remove blogs
-    console.log('[blogs]', user);
-    // user.blogs.pull({});
-    // await user.blogs.save({ session });
+    await Blog.deleteMany({ creator: userId }).session(session);
 
-    console.log('[commit]', user);
-    // Commit transaction
     await session.commitTransaction();
   } catch (err) {
     const error = new HttpError(
