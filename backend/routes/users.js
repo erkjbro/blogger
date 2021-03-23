@@ -63,6 +63,9 @@ router.patch(
   userController.patchUser
 );
 
-
+router.delete(
+  '/:userId',
+  userController.deleteUser
+);
 
 export default router;

@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import { validationResult } from 'express-validator';
 
 import HttpError from '../models/http-error.js';
@@ -327,15 +328,65 @@ export const patchUser = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
   // Extract userId from params
+  const { userId } = req.params;
 
   // Find user in database & populate blogs (?)
+  let user;
+  try {
+    user = await User.findById(userId);
+
+    if (!user) {
+      const error = new HttpError(
+        'User not found with provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
   // Verify AuthZ
+  const uid = req.userData.userId;
+  if (user.id.toString() !== uid) {
+    const error = new HttpError(
+      'You are not allowed to delete this user.',
+      401
+    );
+    return next(error);
+  }
 
-  // Create session and start transaction
-  // Remove blogs
-  // Delete user
-  // Commit transaction
+  try {
+    // Create session and start transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    // Remove user
+    console.log('[delete]', user);
+    await user.remove({ session });
+
+    // Remove blogs
+    console.log('[blogs]', user);
+    // user.blogs.pull({});
+    // await user.blogs.save({ session });
+
+    console.log('[commit]', user);
+    // Commit transaction
+    await session.commitTransaction();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
 
   // Return success message
+  res.json({
+    message: "Deleted the user successfully!"
+  });
 };
