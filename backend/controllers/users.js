@@ -1,29 +1,11 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import { validationResult } from 'express-validator';
 
 import HttpError from '../models/http-error.js';
 import User from '../models/user.js';
-
-export const getUsers = async (req, res, next) => {
-  // Find users w/o password
-  let users;
-  try {
-    users = await User.find({}, '-password');
-  } catch (err) {
-    const error = new HttpError(
-      'Fetching users failed; please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  // Respond w/ user data
-  res.json({
-    message: "Found users succesfully!",
-    data: users.map(user => user.toObject({ getters: true }))
-  });
-};
+import Blog from '../models/blog.js';
 
 export const postSignup = async (req, res, next) => {
   // Express Validation... but this might go in the route instead.
@@ -210,5 +192,200 @@ export const postLogin = async (req, res, next) => {
       email: existingUser.email,
       token
     }
+  });
+};
+
+export const getUserById = async (req, res, next) => {
+  // Extract userId from params
+  const { userId } = req.params;
+
+  // Find user with provided id
+  let user;
+  try {
+    user = await User.findById(userId, '-password');
+
+    // Verify user was found
+    if (!user) {
+      const error = new HttpError(
+        'User could not be found with the provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wong; please try again.',
+      500
+    );
+    return next(error);
+  }
+
+  // Verify AuthZ
+  const uid = req.userData.userId;
+  if (user.id !== uid) {
+    const error = new HttpError(
+      'You are not allowed to view this data.',
+      401
+    );
+    return next(error);
+  }
+
+  // Return data matching specified user
+  res.json({
+    message: "Found user successfully!",
+    data: user.toObject({ getters: true })
+  });
+};
+
+export const patchUser = async (req, res, next) => {
+  // Express validation
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const error = new HttpError(
+      'Check your data!',
+      403
+    );
+    return next(error);
+  }
+
+  // Extract data from body
+  const { name, email } = req.body;
+  // Extract userId from params
+  const { userId } = req.params;
+
+  // Find user in database
+  let user;
+  try {
+    user = await User.findById(userId);
+
+    if (!user) {
+      const error = new HttpError(
+        'Could not find user with provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong.',
+      500
+    );
+    return next(error);
+  }
+
+  // Extract user id from user data
+  const uid = req.userData.userId;
+
+  // Verify authZ
+  if (user.id.toString() !== uid) {
+    const error = new HttpError(
+      'You are not allowed to access this data.',
+      401
+    );
+    return next(error);
+  }
+
+  // Update user data
+  user.name = name;
+  try {
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      const error = new HttpError(
+        'Email already in use; could not be changed.',
+        422
+      );
+      return next(error);
+    } else {
+      user.email = email;
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
+
+
+  // Save updated user
+  try {
+    await user.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
+
+  // Return message and updated user data
+  res.json({
+    message: "Updated user data successfully!",
+    data: user
+  });
+};
+
+export const deleteUser = async (req, res, next) => {
+  // Extract userId from params
+  const { userId } = req.params;
+
+  // Find user in database & populate blogs (?)
+  let user;
+  let blogs;
+  try {
+    user = await User.findById(userId).populate('blogs');
+    blogs = await Blog.find({ creator: userId });
+
+    if (!user) {
+      const error = new HttpError(
+        'User not found with provided id.',
+        404
+      );
+      return next(error);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
+
+  // Verify AuthZ
+  const uid = req.userData.userId;
+  if (user.id.toString() !== uid) {
+    const error = new HttpError(
+      'You are not allowed to delete this user.',
+      401
+    );
+    return next(error);
+  }
+
+  try {
+    // Create session and start transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    // Removing user
+    await user.remove({ session });
+
+    // Deleting all blogs created by the deleted user
+    await Blog.deleteMany({ creator: userId }).session(session);
+
+    // Commit transaction and save data to db
+    await session.commitTransaction();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong!',
+      500
+    );
+    return next(error);
+  }
+
+  // Return success message
+  res.json({
+    message: "Deleted the user successfully!"
   });
 };

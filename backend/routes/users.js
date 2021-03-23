@@ -2,13 +2,9 @@ import express from 'express';
 import { check } from 'express-validator';
 
 import * as userController from '../controllers/users.js';
+import checkAuth from '../middleware/check-auth.js';
 
 const router = express.Router();
-
-router.get(
-  '/',
-  userController.getUsers
-);
 
 router.post(
   '/signup',
@@ -45,6 +41,31 @@ router.post(
       .isEmpty()
   ],
   userController.postLogin
+);
+
+router.use(checkAuth);
+
+router.get(
+  '/:userId',
+  userController.getUserById
+);
+
+router.patch(
+  '/:userId',
+  [
+    check('name')
+      .trim(),
+
+    check('email')
+      .normalizeEmail()
+      .isEmail()
+  ],
+  userController.patchUser
+);
+
+router.delete(
+  '/:userId',
+  userController.deleteUser
 );
 
 export default router;
