@@ -3,56 +3,62 @@
 A blogging app. Starting with a simple monolithic MERN structure and then iterating with improvements. The main purpose of this app is to make a straightforward design and then build upon it.
 
 ## VOB Roadmap
+> This is a living roadmap and not yet completed.
 
 ### v0.1.0
-> I'll decide on versioning plans later.
-
 - Build the MERN App
   * Web Client - React
-  * API - Node / Express
-  * Database Connection
+  * API - Node.js + Express
+  * Database Connection - MongoDB (Atlas)
+
+### v0.2.0
+- Image/File Handling
   * Configure S3 storage for assets/images
 - Enhance app for prod deployment
 - Configure AWS Architecture
 
 ### v0.x.0
+- Create alternate client that utilizes redux
+
+### v0.x.0
 - Dockerize app
 
 ### v0.x.0
-- Update api for redis
+- Convert api to TypeScript
+- Convert client to TypeScript
+
+### v0.x.0
+- Web client - formik testing
 
 ### v0.x.0
 - Web client - responsive updates
 - Web client - animations
 
 ### v0.x.0
-- Update api for typescript
-- Update web client for typescript
+- Update api for redis
 
 ### v0.x.0
-- Web client - formik testing?
+- Create mobile client (react native)
+
+### v0.x.0
+- Decouple app and create a microservice architecture
 
 # Get started
- - Clone the project.
- - `yarn install`: Install all dependencies
- - `yarn run dev`: Start the project for development
+ * Clone the project.
+ * `yarn install`: Install all dependencies. Be sure to do this in the project root and also the `backend` and `frontend`.
+ * `yarn start`: Start the project for development
 
 # Project structure & architecture
 
  **Dependencies:**
 
-  - [x] React
-  - [x] ...
-
-  **Dev Dependencies:**
-
-  > If applicable
+  - [x] concurrently
 
  **Project Structure:**
 
- > Add comments about the project's format for its structure.
-
-I want to keep the code in the same repo, but I do not want to deploy it to the same EC2 instance. Maybe I'll add concurrently in the root directory so that it's easier for others to get started and try the code.
+VOB is being developed with a monolithic structure for the sake of simplicity. The *React* web client is stored in the `frontend`
+directory, and the *Node.js* rest api is in the `backend` directory. There will be more details about the structure of each
+component within their respective directories.
 
 # Development Workflow
 > Feature Branch Workflow, Git Workflow, or another Workflow Strategy? `main`, `develop`, `feature`, `release`, `hotfix`, or `bug` Branches? Branch naming conventions? Add notes about you & your team's workflow methodology.
