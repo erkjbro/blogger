@@ -1,15 +1,21 @@
+import { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-const Home = () => <h1>Verbose Octo Blog</h1>;
+import Home from './blog/pages/Home';
+import { AuthContext } from './shared/context/AuthContext';
 
 const App = () => {
+  const context = useContext(AuthContext);
+
+  if (!!context.token) {
+    console.log("Protected routes rendered!");
+  }
+
   return (
-    <div>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Redirect to="/" />
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Redirect to="/" />
+    </Switch>
   );
 };
 
