@@ -1,0 +1,46 @@
+.navbar {
+  height: 4rem;
+  background-color: orange;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .navbar__brand {
+    font-size: 1.5rem;
+    font-weight: 450;
+    text-decoration: none;
+    padding-left: 3rem;
+    color: initial;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: inherit;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-end;
+
+    li {
+      margin: 1rem;
+      display: inherit;
+
+      a {
+        text-decoration: none;
+        display: inline-flex;
+        align-self: center;
+        color: darkblue;
+        font-size: 1.2rem;
+        font-weight: bold;
+
+        &:hover,
+        &:active,
+        &.active {
+          color: white;
+        }
+      }
+    }
+  }
+}
