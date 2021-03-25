@@ -3,8 +3,11 @@ import { useState, createContext } from 'react';
 const AuthContext = createContext()
 
 const AuthProvider = (props) => {
+  //eslint-disable-next-line
   const [isAuth, setIsAuth] = useState(false);
+  //eslint-disable-next-line
   const [token, setToken] = useState();
+  //eslint-disable-next-line
   const [userId, setUserId] = useState();
 
   const login = () => {};
