@@ -1,7 +1,9 @@
 import { useContext, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import Navbar from './shared/components/Navigation/Navbar';
 import Home from './blog/pages/Home';
+import Blogs from './blog/pages/Blogs';
 import { AuthContext } from './shared/context/AuthContext';
 
 const Auth = lazy(() => import('./user/pages/Auth'));
@@ -15,6 +17,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/blogs" exact component={Blogs} />
         <Route path="/:userId/profile" component={Profile} />
         <Redirect to="/" />
       </Switch>
@@ -23,6 +26,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/blogs" exact component={Blogs} />
         <Route path="/auth" exact component={Auth} />
         <Redirect to="/" />
       </Switch>
@@ -37,7 +41,9 @@ const App = () => {
 
   return (
     <>
-      <nav>Nav...</nav>
+      <header>
+        <Navbar />
+      </header>
       <main>
         <Suspense fallback={loading}>
           {routes}
