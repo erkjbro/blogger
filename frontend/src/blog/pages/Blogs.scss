@@ -1,0 +1,17 @@
+.blogs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .error__message {
+    color: red;
+    background-color: white;
+    display: inline-flex;
+    align-self: center;
+    width: fit-content;
+    padding: 1rem;
+    border: 1px solid red;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgb(255, 0, 0);
+  }
+}

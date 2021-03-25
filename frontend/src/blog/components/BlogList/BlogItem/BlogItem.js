@@ -1,4 +1,6 @@
 
+import './BlogItem.scss';
+
 const BlogItem = (props) => {
   const {
     creator,
@@ -9,13 +11,12 @@ const BlogItem = (props) => {
   } = props;
 
   return (
-    <li>
+    <li className="blog__item">
       <h2>{title}</h2>
-      <span>Created by: {creator.name}</span>
+      <h5>Creator: {creator.name}</h5>
       <p>{content}</p>
-      <span>Created on: {createdAt}</span>
-      <br />
-      <span>Last updated: {updatedAt}</span>
+      <code>Created on: {createdAt}</code>
+      <code>Last updated: {updatedAt}</code>
     </li>
   );
 };

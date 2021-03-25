@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import BlogList from '../components/BlogList/BlogList';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
+import './Blogs.scss';
 
 const Blogs = () => {
   // eslint-disable-next-line
@@ -32,13 +33,7 @@ const Blogs = () => {
   const errorMessage = (
     <h1
       onClick={() => setError(null)}
-      style={{
-        color: 'red',
-        backgroundColor: 'white',
-        display: 'inline-flex',
-        padding: '1rem',
-        borderRadius: '10px'
-      }}
+      className="error__message"
     >
       {error}
     </h1>

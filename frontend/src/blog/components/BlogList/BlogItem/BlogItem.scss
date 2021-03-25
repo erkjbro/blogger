@@ -1,0 +1,30 @@
+.blog__item {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  text-align: left;
+  font-size: 1.2rem;
+  margin: 1rem;
+  padding: 1rem 1.5rem;
+  width: 30rem;
+  overflow: hidden;
+  color: initial;
+  background-color: white;
+  border: 2px solid orange;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+
+  h2, h5 {
+    text-align: center;
+    margin: 0.4rem;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  code {
+    display: inline-flex;
+    font-size: 0.5rem;
+  }
+}
