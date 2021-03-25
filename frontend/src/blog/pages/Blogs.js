@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+import BlogList from '../components/BlogList/BlogList';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
 
 const Blogs = () => {
@@ -28,26 +29,30 @@ const Blogs = () => {
     })()
   }, []);
 
-  const errorMessage = <h1 onClick={() => setError(null)}>There was an error!</h1>;
+  const errorMessage = (
+    <h1
+      onClick={() => setError(null)}
+      style={{
+        color: 'red',
+        backgroundColor: 'white',
+        display: 'inline-flex',
+        padding: '1rem',
+        borderRadius: '10px'
+      }}
+    >
+      {error}
+    </h1>
+  );
 
   return (
     <div className="blogs">
       {error && errorMessage}
       {isLoading && <Loader />}
-      <ul>
-        {blogs.length > 0 ? (
-          blogs.map(blog => (
-            <li key={blog._id}>
-              <h2>{blog.title}</h2>
-              <span>Created by: {blog.creator.name}</span>
-              <p>{blog.content}</p>
-              <span>Created on: {blog.createdAt}</span>
-              <br />
-              <span>Last updated: {blog.updatedAt}</span>
-            </li>
-          ))
-        ) : (<h1>No blogs...</h1>)}
-      </ul>
+      {blogs.length > 0 ? (
+        <BlogList blogs={blogs} />
+      ) : (
+        <h1>No blogs...</h1>
+      )}
     </div>
   );
 };
