@@ -1,0 +1,29 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  code {
+    color: cyan;
+  }
+
+  p {
+    width: 90vw;
+    max-width: 50rem;
+    text-align: left;
+    text-indent: 2rem;
+
+    a {
+      color: orange;
+      text-decoration: none;
+      font-weight: bold;
+
+      &:hover,
+      &:focus {
+        color: cyan;
+        outline: none;
+      }
+    }
+  }
+}
