@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Navbar from './shared/components/Navigation/Navbar';
 import Home from './blog/pages/Home';
-import Loader from './shared/components/UIKit/Loader';
+import Loader from './shared/components/UIKit/Loader/Loader';
 import Blogs from './blog/pages/Blogs';
 import { AuthContext } from './shared/context/AuthContext';
 
