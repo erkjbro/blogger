@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Navbar from './shared/components/Navigation/Navbar';
 import Home from './blog/pages/Home';
+import Loader from './shared/components/UIKit/Loader';
 import Blogs from './blog/pages/Blogs';
 import { AuthContext } from './shared/context/AuthContext';
 
@@ -33,11 +34,7 @@ const App = () => {
     );
   }
 
-  const loading = (
-    <div>
-      <h2>Loading...</h2>
-    </div>
-  );
+  const loading = <Loader />;
 
   return (
     <>
