@@ -4,9 +4,11 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './shared/components/Navigation/Navbar';
 import Home from './blog/pages/Home';
 import Loader from './shared/components/UIKit/Loader/Loader';
-import Blogs from './blog/pages/Blogs';
 import { AuthContext } from './shared/context/AuthContext';
 
+// import Blogs from './blog/pages/Blogs';
+const Blogs = lazy(() => import('./blog/pages/Blogs'));
+const BlogDetails = lazy(() => import('./blog/pages/BlogDetails'));
 const Auth = lazy(() => import('./user/pages/Auth'));
 const Profile = lazy(() => import('./user/pages/Profile'));
 
@@ -19,6 +21,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/blogs" exact component={Blogs} />
+        <Route path="/blogs/:blogId" exact component={BlogDetails} />
         <Route path="/:userId/profile" component={Profile} />
         <Redirect to="/" />
       </Switch>
@@ -28,6 +31,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/blogs" exact component={Blogs} />
+        <Route path="/blogs/:blogId" exact component={BlogDetails} />
         <Route path="/auth" exact component={Auth} />
         <Redirect to="/" />
       </Switch>
