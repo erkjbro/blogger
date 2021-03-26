@@ -16,8 +16,7 @@ const Home = () => {
         Current user is {!context.isAuth && 'not'} authenticated.
       </code>
       <p>
-        Welcome to my blogging app! My name is
-        &nbsp;
+        Welcome to my blogging app! My name is&nbsp;
       <a
           href="https://erikjbrown.tech"
           rel="noopener noreferrer"
