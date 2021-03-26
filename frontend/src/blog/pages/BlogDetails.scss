@@ -1,0 +1,28 @@
+.blog__details {
+  max-width: 1000px;
+  padding: 0 4rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    width: fit-content;
+    align-self: center;
+    margin: 2rem 0 0 0;
+    padding: 0 4rem;
+    color: orange;
+    border-bottom: 2px solid orange;
+  }
+
+  h5 {
+    width: fit-content;
+    align-self: center;
+    color: cyan;
+    margin: 0.2rem 0 1rem 0;
+  }
+
+  p {
+    text-indent: 1rem;
+    text-align: left;
+  }
+}

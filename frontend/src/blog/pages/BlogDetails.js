@@ -13,9 +13,15 @@ const BlogDetails = (props) => {
   useEffect(() => {
     (async () => {
       try {
-        console.log(`fetching blog matching ${blogId}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/blogs/${blogId}`);
+        const resData = await response.json();
 
-        setBlog({});
+        if (!response.ok) {
+          throw new Error(resData.message);
+        }
+
+        console.log(resData);
+        setBlog(resData.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -25,11 +31,16 @@ const BlogDetails = (props) => {
   }, [blogId]);
 
   return (
-    <div>
+    <div className="blog__details">
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>Error!</h1>}
-      <h1>Blog Details!</h1>
-      {blog && console.log(blog)}
+      {blog && (
+        <>
+          <h1>{blog.title}</h1>
+          <h5>Created by: {blog.creator}</h5>
+          <p>{blog.content}</p>
+        </>
+      )}
     </div>
   );
 };
