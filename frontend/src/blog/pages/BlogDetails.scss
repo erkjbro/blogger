@@ -14,15 +14,27 @@
     border-bottom: 2px solid orange;
   }
 
-  h5 {
+  h4, h6 {
     width: fit-content;
     align-self: center;
     color: cyan;
-    margin: 0.2rem 0 1rem 0;
+    margin: 0.2rem 0 0 0;
+  }
+
+  h6 {
+    color: inherit;
+    margin-bottom: 1rem;
+    font-size: 0.5rem;
+  }
+
+  code {
+    position: fixed;
+    bottom: 1rem;
+    font-size: 0.6rem;
   }
 
   p {
-    text-indent: 1rem;
+    text-indent: 2rem;
     text-align: left;
   }
 }
