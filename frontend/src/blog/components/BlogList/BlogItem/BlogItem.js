@@ -16,10 +16,12 @@ const BlogItem = (props) => {
     <li className="blog__item">
       <Link to={`/blogs/${_id}`}>
         <h2>{title}</h2>
-        <h5>Creator: {creator.name}</h5>
+        <h5>Created by: {creator.name}</h5>
         <p>{content}</p>
-        <code>Created on: {createdAt}</code>
-        <code>Last updated: {updatedAt}</code>
+        <span className="blog__item--timestamps">
+          <code>Created on: {createdAt}</code>
+          <code>Last updated: {updatedAt}</code>
+        </span>
       </Link>
     </li>
   );
