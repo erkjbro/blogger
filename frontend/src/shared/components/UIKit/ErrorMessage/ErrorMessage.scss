@@ -1,0 +1,22 @@
+.error__message {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  padding: 1rem;
+  margin: 1rem;
+  color: red;
+  background-color: white;
+  border: 1px solid red;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgb(255, 0, 0);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  h1 {
+    display: inline-flex;
+    width: fit-content;
+    margin: 0.2rem;
+  }
+}

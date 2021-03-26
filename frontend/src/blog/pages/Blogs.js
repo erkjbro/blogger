@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import BlogList from '../components/BlogList/BlogList';
+import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
 import './Blogs.scss';
 
@@ -32,18 +33,9 @@ const Blogs = () => {
     })()
   }, []);
 
-  const errorMessage = (
-    <h1
-      onClick={() => setError(null)}
-      className="error__message"
-    >
-      {error}
-    </h1>
-  );
-
   return (
     <div className="blogs">
-      {error && errorMessage}
+      {error && <ErrorMessage message={error} onClick={() => setError(null)} />}
       {isLoading && <Loader />}
       {blogs.length > 0 ? (
         <BlogList blogs={blogs} />
