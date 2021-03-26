@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 
-const Profile = (props) => (
-  <div>
-    <h2>User profile page.</h2>
-  </div>
-);
+const Profile = () => {
+  useEffect(() => document.title = 'Profile | VOB', []);
+
+  return (
+    <div>
+      <h2>User Profile</h2>
+    </div>
+  );
+}
 
 export default Profile;

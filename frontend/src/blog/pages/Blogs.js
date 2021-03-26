@@ -10,6 +10,8 @@ const Blogs = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
+  useEffect(() => document.title = 'Blogs | VOB', []);
+
   useEffect(() => {
     (async () => {
       try {
