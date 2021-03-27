@@ -7,10 +7,11 @@ const BlogItem = (props) => {
     _id,
     creator,
     content,
-    title,
-    createdAt,
-    updatedAt
+    title
   } = props;
+
+  const createdAt = new Date(props.createdAt).toLocaleString("en-US");
+  const updatedAt = new Date(props.updatedAt).toLocaleString("en-US");
 
   return (
     <li className="blog__item">
@@ -19,7 +20,7 @@ const BlogItem = (props) => {
         <h5>Created by: {creator.name}</h5>
         <p>{content}</p>
         <span className="blog__item--timestamps">
-          <code>Created on: {createdAt}</code>
+          <code>Written on: {createdAt}</code>
           <code>Last updated: {updatedAt}</code>
         </span>
       </Link>
