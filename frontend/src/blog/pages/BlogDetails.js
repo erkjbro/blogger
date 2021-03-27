@@ -16,6 +16,8 @@ const BlogDetails = () => {
     sendRequest
   } = useFetch(process.env.REACT_APP_BACKEND_URL);
 
+  useEffect(() => blog ? document.title = `${blog.title} | VOB` : null, [blog]);
+
   useEffect(() => {
     (async () => {
       try {
