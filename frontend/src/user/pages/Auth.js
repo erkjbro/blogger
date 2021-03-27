@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from 'react';
 
 // import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 // import Loader from '../../shared/components/UIKit/Loader/Loader';
-// import useFetch from '../../shared/hooks/useFetch';
 // import { AuthContext } from '../../shared/context/AuthContext';
 import './Auth.scss';
 
@@ -20,14 +19,16 @@ const Auth = () => {
     password: {
       value: ''
     }
-  })
+  });
 
-  useEffect(() => document.title = "Authentication | VOB", []);
+  useEffect(() => document.title = `${isLoginMode ? "Login" : "Signup"} | VOB`, [isLoginMode]);
 
   const handleAuthSubmit = (event) => {
     event.preventDefault();
 
     console.log(form);
+    // Send login request and then store the token and user id.
+    // Should be able to just call the context login or signup.
   };
 
   const handleAuthToggle = () => setIsLoginMode(prevState => !prevState);
