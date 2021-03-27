@@ -34,6 +34,7 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
   * Captcha
     - h?
     - re?
+  * IAM / Federation?
 
 - Image/File Handling
   * Configure S3 storage for assets/images
