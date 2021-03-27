@@ -1,16 +1,19 @@
+@import 'styles/colors';
+
 .navbar {
-  height: 4rem;
+  padding: 0.2rem;
   background-color: orange;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   .navbar__brand {
-    font-size: 1.5rem;
-    font-weight: 450;
+    font-size: 1.6rem;
+    font-weight: bold;
     text-decoration: none;
+    padding: 1rem;
     padding-left: 3rem;
-    color: initial;
+    color: map-get($colors, dark);
   }
 
   ul {
@@ -20,18 +23,19 @@
     height: 100%;
     display: inherit;
     flex-direction: row;
+    flex-wrap: wrap;
     align-content: center;
     justify-content: flex-end;
 
     li {
-      margin: 1rem;
+      margin: 0.2rem 1rem;
       display: inherit;
 
       a {
         text-decoration: none;
         display: inline-flex;
         align-self: center;
-        color: darkblue;
+        color: map-get($colors, dark);
         font-size: 1.2rem;
         font-weight: bold;
 
