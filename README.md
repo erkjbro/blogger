@@ -6,42 +6,81 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
 > This is a living roadmap and not yet completed.
 
 ### v0.1.0
-- Build the MERN App
+- Build the MERN App - Basic Starting Version
   * Web Client - React
+    - Public & protected areas
+    - SCSS styling & start UIKit
+    - Decent UI just to interact with backend
   * API - Node.js + Express
+    - CRUD for blogs
+    - CRUD for users
+    - auth with jwts
   * Database Connection - MongoDB (Atlas)
 
-### v0.2.0
+### Feature Backlog
+- Build out the UIKit
+  * modal
+  * error modal
+  * backdrop
+  * form elements (Formik?)
+  * responsive updates
+  * animations
+
+- Auth Improvements
+  * Confirm password for signup
+  * Email user to verify account after successful signup
+  * Password recovery & changing
+  * MFA
+  * Captcha
+    - h?
+    - re?
+
 - Image/File Handling
   * Configure S3 storage for assets/images
+  * Generate pdfs.
+    - Allow users to request a copy of their data.
+    - Perhaps email users with the pdf attached.
+    - Store pdfs in S3 bucket? Prefer to delete them.
+
+- User Model Improvements
+  * Make user profiles more realistic and comparable to other apps. User Bio, picture, social links, alternate email, etc.
+
+- Blog Model Improvements
+  * Content should probably be an array of data. Allow users to add
+  multiple paragraphs and images between. Like a real blog.
+  * Improve blog create / edit page.
+
 - Enhance app for prod deployment
+  * Compression
+  * Security Headers
+  * ...rest
+
 - Configure AWS Architecture
+  * eb cli deployment
+  * amplify frontend
 
-### v0.x.0
-- Create alternate client that utilizes redux
-
-### v0.x.0
 - Dockerize app
 
-### v0.x.0
+- Implement caching strategy using Redis
+  * Redis docker container for dev
+  * Redis ElastiCache for prod
+
+- Testing everywhere!
+  * unit & integration?
+  * e2e?
+
+- Create alternate client built around Redux
+
+- Create mobile client with React Native
+
 - Convert api to TypeScript
-- Convert client to TypeScript
 
-### v0.x.0
-- Web client - formik testing
+- Convert client(s) to TypeScript
 
-### v0.x.0
-- Web client - responsive updates
-- Web client - animations
+- Make alternate GraphQL version of app?
 
-### v0.x.0
-- Update api for redis
-
-### v0.x.0
-- Create mobile client (react native)
-
-### v0.x.0
 - Decouple app and create a microservice architecture
+  * SAM? Deploy containers to lambdas? Probably going serverless.
 
 # Get started
  * Clone the project.
