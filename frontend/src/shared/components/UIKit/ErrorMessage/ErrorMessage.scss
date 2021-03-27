@@ -1,14 +1,16 @@
+@import 'styles/colors';
+
 .error__message {
   display: flex;
   justify-content: center;
   align-self: center;
   padding: 1rem;
   margin: 1rem;
-  color: red;
-  background-color: white;
-  border: 1px solid red;
+  color: map-get($colors, error);
+  background-color: map-get($colors, light);
+  border: 1px solid map-get($colors, error);
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgb(255, 0, 0);
+  box-shadow: 0 2px 8px map-get($colors, error);
 
   &:hover {
     cursor: pointer;

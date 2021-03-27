@@ -42,7 +42,7 @@
         &:hover,
         &:active,
         &.active {
-          color: white;
+          color: map-get($colors, light);
         }
       }
     }

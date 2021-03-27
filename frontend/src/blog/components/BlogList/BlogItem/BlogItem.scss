@@ -1,3 +1,5 @@
+@import 'styles/colors';
+
 .blog__item {
   min-height: 15rem;
   width: 30rem;
@@ -9,8 +11,8 @@
   list-style: none;
   overflow: hidden;
   color: initial;
-  background-color: white;
-  border: 2px solid orange;
+  background-color: map-get($colors, light);
+  border: 2px solid map-get($colors, primary);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
 

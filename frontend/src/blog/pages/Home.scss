@@ -1,3 +1,5 @@
+@import 'styles/colors';
+
 .home {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,7 @@
   align-items: center;
 
   code {
-    color: cyan;
+    color: map-get($colors, secondary);
   }
 
   p {
@@ -15,13 +17,13 @@
     text-indent: 2rem;
 
     a {
-      color: orange;
+      color: map-get($colors, primary);
       text-decoration: none;
       font-weight: bold;
 
       &:hover,
       &:focus {
-        color: cyan;
+        color: map-get($colors, secondary);
         outline: none;
       }
     }
