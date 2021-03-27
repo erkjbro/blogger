@@ -41,8 +41,8 @@ const BlogDetails = (props) => {
 
   return (
     <div className="blog__details">
-      {isLoading && <Loader />}
       {error && <ErrorMessage message={error} onClick={() => setError(null)} />}
+      {isLoading && <Loader />}
       {blog && (
         <>
           <h1>{blog.title}</h1>
