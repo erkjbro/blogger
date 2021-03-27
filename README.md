@@ -3,56 +3,101 @@
 A blogging app. Starting with a simple monolithic MERN structure and then iterating with improvements. The main purpose of this app is to make a straightforward design and then build upon it.
 
 ## VOB Roadmap
+> This is a living roadmap and not yet completed.
 
 ### v0.1.0
-> I'll decide on versioning plans later.
-
-- Build the MERN App
+- Build the MERN App - Basic Starting Version
   * Web Client - React
-  * API - Node / Express
-  * Database Connection
-  * Configure S3 storage for assets/images
-- Enhance app for prod deployment
-- Configure AWS Architecture
+    - Public & protected areas
+    - SCSS styling & start UIKit
+    - Decent UI just to interact with backend
+  * API - Node.js + Express
+    - CRUD for blogs
+    - CRUD for users
+    - auth with jwts
+  * Database Connection - MongoDB (Atlas)
 
-### v0.x.0
+### Feature Backlog
+- Build out the UIKit
+  * modal
+  * error modal
+  * backdrop
+  * form elements (Formik?)
+  * responsive updates
+  * animations
+
+- Auth Improvements
+  * Confirm password for signup
+  * Email user to verify account after successful signup
+  * Password recovery & changing
+  * MFA
+  * Captcha
+    - h?
+    - re?
+
+- Image/File Handling
+  * Configure S3 storage for assets/images
+  * Generate pdfs.
+    - Allow users to request a copy of their data.
+    - Perhaps email users with the pdf attached.
+    - Store pdfs in S3 bucket? Prefer to delete them.
+
+- User Model Improvements
+  * Make user profiles more realistic and comparable to other apps. User Bio, picture, social links, alternate email, etc.
+
+- Blog Model Improvements
+  * Content should probably be an array of data. Allow users to add
+  multiple paragraphs and images between. Like a real blog.
+  * Improve blog create / edit page.
+
+- Enhance app for prod deployment
+  * Compression
+  * Security Headers
+  * ...rest
+
+- Configure AWS Architecture
+  * eb cli deployment
+  * amplify frontend
+
 - Dockerize app
 
-### v0.x.0
-- Update api for redis
+- Implement caching strategy using Redis
+  * Redis docker container for dev
+  * Redis ElastiCache for prod
 
-### v0.x.0
-- Web client - responsive updates
-- Web client - animations
+- Testing everywhere!
+  * unit & integration?
+  * e2e?
 
-### v0.x.0
-- Update api for typescript
-- Update web client for typescript
+- Create alternate client built around Redux
 
-### v0.x.0
-- Web client - formik testing?
+- Create mobile client with React Native
+
+- Convert api to TypeScript
+
+- Convert client(s) to TypeScript
+
+- Make alternate GraphQL version of app?
+
+- Decouple app and create a microservice architecture
+  * SAM? Deploy containers to lambdas? Probably going serverless.
 
 # Get started
- - Clone the project.
- - `yarn install`: Install all dependencies
- - `yarn run dev`: Start the project for development
+ * Clone the project.
+ * `yarn install`: Install all dependencies. Be sure to do this in the project root and also the `backend` and `frontend`.
+ * `yarn start`: Start the project for development
 
 # Project structure & architecture
 
  **Dependencies:**
 
-  - [x] React
-  - [x] ...
-
-  **Dev Dependencies:**
-
-  > If applicable
+  - [x] concurrently
 
  **Project Structure:**
 
- > Add comments about the project's format for its structure.
-
-I want to keep the code in the same repo, but I do not want to deploy it to the same EC2 instance. Maybe I'll add concurrently in the root directory so that it's easier for others to get started and try the code.
+VOB is being developed with a monolithic structure for the sake of simplicity. The *React* web client is stored in the `frontend`
+directory, and the *Node.js* rest api is in the `backend` directory. There will be more details about the structure of each
+component within their respective directories.
 
 # Development Workflow
 > Feature Branch Workflow, Git Workflow, or another Workflow Strategy? `main`, `develop`, `feature`, `release`, `hotfix`, or `bug` Branches? Branch naming conventions? Add notes about you & your team's workflow methodology.

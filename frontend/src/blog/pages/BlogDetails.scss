@@ -1,0 +1,42 @@
+@import 'styles/colors';
+
+.blog__details {
+  max-width: 1000px;
+  padding: 0 4rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    width: fit-content;
+    align-self: center;
+    margin: 2rem 0 0 0;
+    padding: 0 4rem;
+    color: map-get($colors, primary);
+    border-bottom: 2px solid map-get($colors, primary);
+  }
+
+  h4, h6 {
+    width: fit-content;
+    align-self: center;
+    color: map-get($colors, secondary);
+    margin: 0.2rem 0 0 0;
+  }
+
+  h6 {
+    color: inherit;
+    margin-bottom: 1rem;
+    font-size: 0.5rem;
+  }
+
+  code {
+    position: fixed;
+    bottom: 1rem;
+    font-size: 0.6rem;
+  }
+
+  p {
+    text-indent: 2rem;
+    text-align: left;
+  }
+}

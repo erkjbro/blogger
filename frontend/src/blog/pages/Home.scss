@@ -1,0 +1,31 @@
+@import 'styles/colors';
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  code {
+    color: map-get($colors, secondary);
+  }
+
+  p {
+    width: 90vw;
+    max-width: 50rem;
+    text-align: left;
+    text-indent: 2rem;
+
+    a {
+      color: map-get($colors, primary);
+      text-decoration: none;
+      font-weight: bold;
+
+      &:hover,
+      &:focus {
+        color: map-get($colors, secondary);
+        outline: none;
+      }
+    }
+  }
+}

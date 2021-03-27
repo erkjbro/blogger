@@ -9,7 +9,7 @@ export const getBlogs = async (req, res, next) => {
   // Find blogs - maybe add pagination later
   let blogs;
   try {
-    blogs = await Blog.find({});
+    blogs = await Blog.find({}).populate('creator', 'name');
   } catch (err) {
     const error = new HttpError(
       'Something went wrong; blogs not found.',
@@ -32,7 +32,7 @@ export const getBlogById = async (req, res, next) => {
   // Find blog matching bid
   let blog;
   try {
-    blog = await Blog.findById(blogId);
+    blog = await Blog.findById(blogId).populate('creator', 'name');
 
     if (!blog) {
       const error = new HttpError(
@@ -63,7 +63,7 @@ export const getBlogsByUserId = async (req, res, next) => {
   // Find user matching userId and populate their blog data
   let blogUser;
   try {
-    blogUser = await User.findById(userId).populate('blogs');
+    blogUser = await User.findById(userId, '-password').populate('blogs');
 
     // Verify that user exists and has blogs
     if (!blogUser || blogUser.blogs.length === 0) {
@@ -115,7 +115,7 @@ export const postBlog = async (req, res, next) => {
   // Find user
   let user;
   try {
-    user = await User.findById(userId);
+    user = await User.findById(userId, '-password');
 
     if (!user) {
       const error = new HttpError(
