@@ -39,9 +39,9 @@ const Blogs = () => {
       {isLoading && <Loader />}
       {blogs.length > 0 ? (
         <BlogList blogs={blogs} />
-      ) : (
+      ) : !isLoading ? (
         <h1>No blogs...</h1>
-      )}
+      ) : null}
     </div>
   );
 };
