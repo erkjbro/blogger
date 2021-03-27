@@ -2,7 +2,7 @@ import { useContext, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Navbar from './shared/components/Navigation/Navbar';
-import Home from './blog/pages/Home';
+import Home from './site/pages/Home';
 import Loader from './shared/components/UIKit/Loader/Loader';
 import { AuthContext } from './shared/context/AuthContext';
 
