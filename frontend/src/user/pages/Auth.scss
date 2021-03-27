@@ -1,0 +1,75 @@
+@import 'styles/colors';
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .toggle {
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: map-get($colors, primary);
+    color: map-get($colors, dark);
+    border: 2px solid map-get($colors, dark);
+    border-radius: 8px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: map-get($colors, secondary);
+      color: map-get($colors, light);
+      border-color: map-get($colors, light);
+    }
+  }
+
+  form {
+    min-height: 15rem;
+    width: 30rem;
+    margin: 1rem;
+    padding: 0 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 1.2rem;
+    color: map-get($colors, dark);
+    background-color: map-get($colors, light);
+    border: 2px solid map-get($colors, primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+
+    h2,
+    h4 {
+      margin: 1rem 0;
+      align-self: center;
+    }
+
+    label {
+      margin: 0.2rem;
+      padding: 0.2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    button {
+      margin: 1.5rem 0.2rem;
+      padding: 0.2rem 2rem;
+      width: fit-content;
+      display: inline-flex;
+      align-self: center;
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: map-get($colors, dark);
+      color: map-get($colors, primary);
+      border: 2px solid map-get($colors, pimary);
+      border-radius: 8px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: map-get($colors, primary);
+        color: map-get($colors, dark);
+        border-color: map-get($colors, dark);
+      }
+    }
+  }
+}
