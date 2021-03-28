@@ -45,6 +45,19 @@
           color: map-get($colors, light);
         }
       }
+
+      button {
+        background-color: map-get($colors, primary);
+        color: map-get($colors, dark);
+        border: 2px solid map-get($colors, dark);
+
+        &:hover {
+          cursor: pointer;
+          background-color: map-get($colors, dark);
+          color: map-get($colors, light);
+          border-color: map-get($colors, light);
+        }
+      }
     }
   }
 }
