@@ -20,8 +20,8 @@ const formData = {
 
 const Auth = () => {
   const { login } = useContext(AuthContext);
-  const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
+  const [isLoginMode, setIsLoginMode] = useState(true);
   const [form, setForm] = useState(formData);
 
   useEffect(() => document.title = `${isLoginMode ? "Login" : "Signup"} | VOB`, [isLoginMode]);
