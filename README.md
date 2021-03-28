@@ -18,11 +18,14 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
   * Database Connection - MongoDB (Atlas)
 
 ### Feature Backlog
+- Form Updates
+  * Formik Conversion
+  * Form Elements for UIKit
+
 - Build out the UIKit
   * modal
   * error modal
   * backdrop
-  * form elements (Formik?)
   * responsive updates
   * animations
 
@@ -34,6 +37,8 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
   * Captcha
     - h?
     - re?
+  * IAM / Federation?
+  * Passport.js?
 
 - Image/File Handling
   * Configure S3 storage for assets/images

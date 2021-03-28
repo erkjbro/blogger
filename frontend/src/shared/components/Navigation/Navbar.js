@@ -5,20 +5,25 @@ import { AuthContext } from '../../context/AuthContext';
 import './Navbar.scss';
 
 const Navbar = () => {
-  const context = useContext(AuthContext);
+  const { isAuth, userId, logout } = useContext(AuthContext);
 
   let authLinks;
-  if (context.isAuth) {
+  if (isAuth) {
     authLinks = (
       <>
         <li>
           <NavLink
             exact
             activeClassName={"active"}
-            to={`/${context.userId}/profile`}
+            to={`/${userId}/profile`}
           >
             Profile
           </NavLink>
+        </li>
+        <li>
+          <button onClick={logout}>
+            LOGOUT
+          </button>
         </li>
       </>
     );

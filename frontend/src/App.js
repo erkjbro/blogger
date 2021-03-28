@@ -2,7 +2,7 @@ import { useContext, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Navbar from './shared/components/Navigation/Navbar';
-import Home from './blog/pages/Home';
+import Home from './site/pages/Home';
 import Loader from './shared/components/UIKit/Loader/Loader';
 import { AuthContext } from './shared/context/AuthContext';
 
@@ -13,30 +13,18 @@ const Auth = lazy(() => import('./user/pages/Auth'));
 const Profile = lazy(() => import('./user/pages/Profile'));
 
 const App = () => {
-  const context = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
-  let routes;
-  if (!!context.token) {
-    routes = (
-      <Switch>
+  const routes = (
+    <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/blogs" exact component={Blogs} />
         <Route path="/blogs/:blogId" exact component={BlogDetails} />
-        <Route path="/:userId/profile" component={Profile} />
+        {!token ? <Route path="/auth" exact component={Auth} /> : null}
+        {!!token ? <Route path="/:userId/profile" component={Profile} /> : null}
         <Redirect to="/" />
       </Switch>
-    );
-  } else {
-    routes = (
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/blogs" exact component={Blogs} />
-        <Route path="/blogs/:blogId" exact component={BlogDetails} />
-        <Route path="/auth" exact component={Auth} />
-        <Redirect to="/" />
-      </Switch>
-    );
-  }
+  );
 
   const loading = <Loader />;
 

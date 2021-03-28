@@ -3,39 +3,37 @@ import { useState, useEffect } from 'react';
 import BlogList from '../components/BlogList/BlogList';
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
+import useFetch from '../../shared/hooks/useFetch';
 import './Blogs.scss';
 
 const Blogs = () => {
-  // eslint-disable-next-line
   const [blogs, setBlogs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState();
+  const {
+    isLoading,
+    error,
+    clearError,
+    sendRequest
+  } = useFetch(process.env.REACT_APP_BACKEND_URL);
 
   useEffect(() => document.title = 'Blogs | VOB', []);
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/blogs`);
-        const resData = await response.json();
+        const resData = await sendRequest('blogs');
 
-        if (!response.ok) {
-          throw new Error(resData.message);
+        if (resData) {
+          setBlogs(resData.data);
         }
-
-        setBlogs(resData.data);
       } catch (err) {
-        setError(err.message);
-        console.error(err);
-      } finally {
-        setIsLoading(false);
+        console.error(err.message);
       }
     })()
-  }, []);
+  }, [sendRequest]);
 
   return (
     <div className="blogs">
-      {error && <ErrorMessage message={error} onClick={() => setError(null)} />}
+      {error && <ErrorMessage message={error} onClick={() => clearError(null)} />}
       {isLoading && <Loader />}
       {blogs.length > 0 ? (
         <BlogList blogs={blogs} />

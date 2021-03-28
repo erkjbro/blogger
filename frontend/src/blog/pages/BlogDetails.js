@@ -3,56 +3,56 @@ import { useParams } from 'react-router-dom';
 
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
+import useFetch from '../../shared/hooks/useFetch';
 import './BlogDetails.scss';
 
-const BlogDetails = (props) => {
+const BlogDetails = () => {
   const [blog, setBlog] = useState();
-  const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-
   const { blogId } = useParams();
+  const {
+    isLoading,
+    error,
+    clearError,
+    sendRequest
+  } = useFetch(process.env.REACT_APP_BACKEND_URL);
+
+  useEffect(() => blog ? document.title = `${blog.title} | VOB` : null, [blog]);
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/blogs/${blogId}`);
-        const resData = await response.json();
+        const resData = await sendRequest(`blogs/${blogId}`);
 
-        if (!response.ok) {
-          throw new Error(resData.message);
+        if (resData) {
+          const createdAt = new Date(resData.data.createdAt).toLocaleString("en-US");
+          const updatedAt = new Date(resData.data.updatedAt).toLocaleString("en-US");
+
+          setBlog({
+            ...resData.data,
+            createdAt,
+            updatedAt
+          });
         }
-        console.log(resData.message);
-
-        const createdAt = new Date(resData.data.createdAt).toLocaleString("en-US");
-        const updatedAt = new Date(resData.data.updatedAt).toLocaleString("en-US");
-
-        setBlog({
-          ...resData.data,
-          createdAt,
-          updatedAt
-        });
       } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
+        console.error(err.message);
       }
     })()
-  }, [blogId]);
+  }, [sendRequest, blogId]);
 
   return (
-    <div className="blog__details">
-      {error && <ErrorMessage message={error} onClick={() => setError(null)} />}
+    <>
+      {error && <ErrorMessage message={error} onClick={clearError} />}
       {isLoading && <Loader />}
       {blog && (
-        <>
+        <div className="blog__details">
           <h1>{blog.title}</h1>
           <h4>Author: {blog.creator.name}</h4>
           <h6>Last updated: {blog.updatedAt}</h6>
           <p>{blog.content}</p>
           <code>Written on: {blog.createdAt}</code>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
