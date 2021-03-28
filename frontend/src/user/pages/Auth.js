@@ -6,23 +6,26 @@ import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './Auth.scss';
 
+const formData = {
+  name: {
+    value: ''
+  },
+  email: {
+    value: ''
+  },
+  password: {
+    value: ''
+  }
+};
+
 const Auth = () => {
   const { login } = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
-  const [form, setForm] = useState({
-    name: {
-      value: ''
-    },
-    email: {
-      value: ''
-    },
-    password: {
-      value: ''
-    }
-  });
+  const [form, setForm] = useState(formData);
 
   useEffect(() => document.title = `${isLoginMode ? "Login" : "Signup"} | VOB`, [isLoginMode]);
+  useEffect(() => setForm({ ...formData }), [isLoginMode]);
 
   const handleAuthSubmit = async (event) => {
     event.preventDefault();
@@ -65,63 +68,64 @@ const Auth = () => {
     <>
       {error && <ErrorMessage message={error} onClick={clearError} />}
       {isLoading && <Loader />}
-      <div className="auth">
-        <h2>Authentication</h2>
-        <form onSubmit={handleAuthSubmit}>
-          <h4>{isLoginMode ? "LOGIN" : "SIGNUP"}</h4>
-          {!isLoginMode && (
+      {!isLoading && (
+        <div className="auth">
+          <h2>Authentication</h2>
+          <form onSubmit={handleAuthSubmit}>
+            {!isLoginMode && (
+              <label>
+                Name
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Name"
+                  value={form.name.value}
+                  onChange={(event) => setForm({
+                    ...form,
+                    name: {
+                      value: event.target.value
+                    }
+                  })}
+                />
+              </label>
+            )}
             <label>
-              Name
-              <input
-                id="name"
-                type="text"
-                placeholder="Name"
-                value={form.name.value}
+              E-Mail
+            <input
+                id="email"
+                type="email"
+                placeholder="E-Mail"
+                value={form.email.value}
                 onChange={(event) => setForm({
                   ...form,
-                  name: {
+                  email: {
                     value: event.target.value
                   }
                 })}
               />
             </label>
-          )}
-          <label>
-            E-Mail
+            <label>
+              Password
             <input
-              id="email"
-              type="email"
-              placeholder="E-Mail"
-              value={form.email.value}
-              onChange={(event) => setForm({
-                ...form,
-                email: {
-                  value: event.target.value
-                }
-              })}
-            />
-          </label>
-          <label>
-            Password
-            <input
-              id="password"
-              type="password"
-              placeholder="Password"
-              value={form.password.value}
-              onChange={(event) => setForm({
-                ...form,
-                password: {
-                  value: event.target.value
-                }
-              })}
-            />
-          </label>
-          <button type="submit">{!isLoginMode ? "SIGNUP" : "LOGIN"}</button>
-        </form>
-        <button className="toggle" onClick={handleAuthToggle}>
-          SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
-        </button>
-      </div>
+                id="password"
+                type="password"
+                placeholder="Password"
+                value={form.password.value}
+                onChange={(event) => setForm({
+                  ...form,
+                  password: {
+                    value: event.target.value
+                  }
+                })}
+              />
+            </label>
+            <button type="submit">{!isLoginMode ? "SIGNUP" : "LOGIN"}</button>
+          </form>
+          <button className="toggle" onClick={handleAuthToggle}>
+            SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
+          </button>
+        </div>
+      )}
     </>
   );
 };
