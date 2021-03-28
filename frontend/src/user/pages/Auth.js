@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
-// import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
-// import Loader from '../../shared/components/UIKit/Loader/Loader';
+import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
+import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './Auth.scss';
@@ -9,7 +9,6 @@ import './Auth.scss';
 const Auth = () => {
   const { login } = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
-  // eslint-disable-next-line
   const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
   const [form, setForm] = useState({
     name: {
@@ -64,8 +63,8 @@ const Auth = () => {
 
   return (
     <>
-      {error && <h1>error</h1>}
-      {isLoading && <h1>...loading</h1>}
+      {error && <ErrorMessage message={error} onClick={clearError} />}
+      {isLoading && <Loader />}
       <div className="auth">
         <h2>Authentication</h2>
         <form onSubmit={handleAuthSubmit}>
