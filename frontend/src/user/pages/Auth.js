@@ -1,14 +1,16 @@
-// eslint-disable-next-line
 import { useState, useEffect, useContext } from 'react';
 
 // import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 // import Loader from '../../shared/components/UIKit/Loader/Loader';
-// import { AuthContext } from '../../shared/context/AuthContext';
+import useFetch from '../../shared/hooks/useFetch';
+import { AuthContext } from '../../shared/context/AuthContext';
 import './Auth.scss';
 
 const Auth = () => {
-  // const { login, signup } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
+  // eslint-disable-next-line
+  const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
   const [form, setForm] = useState({
     name: {
       value: ''
@@ -23,18 +25,47 @@ const Auth = () => {
 
   useEffect(() => document.title = `${isLoginMode ? "Login" : "Signup"} | VOB`, [isLoginMode]);
 
-  const handleAuthSubmit = (event) => {
+  const handleAuthSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(form);
-    // Send login request and then store the token and user id.
-    // Should be able to just call the context login or signup.
+    let route = "login";
+    let body = {
+      email: form.email.value,
+      password: form.password.value
+    };
+
+    if (!isLoginMode) {
+      route = "signup";
+      body.name = form.name.value;
+    }
+
+    try {
+      const resData = await sendRequest(
+        `users/${route}`,
+        'POST',
+        JSON.stringify(body),
+        { 'Content-Type': 'application/json' }
+      );
+
+      console.log(resData.message);
+
+      const { userId, token } = resData.data;
+
+      login({
+        uid: userId,
+        token
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const handleAuthToggle = () => setIsLoginMode(prevState => !prevState);
 
   return (
     <>
+      {error && <h1>error</h1>}
+      {isLoading && <h1>...loading</h1>}
       <div className="auth">
         <h2>Authentication</h2>
         <form onSubmit={handleAuthSubmit}>
