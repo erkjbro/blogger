@@ -7,7 +7,7 @@ import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './EditBlog.scss';
 
-const blogForm = {
+const formData = {
   title: {
     value: ''
   },
@@ -19,7 +19,7 @@ const blogForm = {
 const EditBlog = (props) => {
   // eslint-disable-next-line
   const { token } = useContext(AuthContext);
-  const [blog, setBlog] = useState(blogForm);
+  const [blog, setBlog] = useState(formData);
   // eslint-disable-next-line
   const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
 
@@ -45,7 +45,7 @@ const EditBlog = (props) => {
               <input
                 type="text"
                 id="title"
-                placeholder="Title"
+                placeholder="Title your blog..."
                 value={blog.title.value}
                 onChange={(event) => setBlog({
                   ...blog,
@@ -60,7 +60,7 @@ const EditBlog = (props) => {
               <br />
               <textarea
                 id="content"
-                placeholder="Content"
+                placeholder="Start writing your blog..."
                 value={blog.content.value}
                 onChange={(event) => setBlog({
                   ...blog,
