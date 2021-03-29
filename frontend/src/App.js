@@ -9,6 +9,7 @@ import { AuthContext } from './shared/context/AuthContext';
 // import Blogs from './blog/pages/Blogs';
 const Blogs = lazy(() => import('./blog/pages/Blogs'));
 const BlogDetails = lazy(() => import('./blog/pages/BlogDetails'));
+const EditBlog = lazy(() => import('./blog/pages/EditBlog'));
 const Auth = lazy(() => import('./user/pages/Auth'));
 const Profile = lazy(() => import('./user/pages/Profile'));
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/blogs" exact component={Blogs} />
         <Route path="/blogs/:blogId" exact component={BlogDetails} />
         {!token ? <Route path="/auth" exact component={Auth} /> : null}
+        {!!token ? <Route path="/new-blog" exact component={EditBlog} /> : null}
         {!!token ? <Route path="/:userId/profile" component={Profile} /> : null}
         <Redirect to="/" />
       </Switch>

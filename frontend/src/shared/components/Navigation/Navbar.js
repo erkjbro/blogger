@@ -15,6 +15,15 @@ const Navbar = () => {
           <NavLink
             exact
             activeClassName={"active"}
+            to={"/new-blog"}
+          >
+            New Blog
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeClassName={"active"}
             to={`/${userId}/profile`}
           >
             Profile
