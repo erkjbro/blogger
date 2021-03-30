@@ -32,7 +32,7 @@ export const getBlogById = async (req, res, next) => {
   // Find blog matching bid
   let blog;
   try {
-    blog = await Blog.findById(blogId).populate('creator', 'name');
+    blog = await Blog.findById(blogId).populate('creator', '-password');
 
     if (!blog) {
       const error = new HttpError(

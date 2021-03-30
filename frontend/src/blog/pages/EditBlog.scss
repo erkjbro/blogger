@@ -1,0 +1,31 @@
+@import 'styles/colors';
+
+.edit__blog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .edit__blog--form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 20rem;
+    margin: 1rem;
+    padding: 1rem 2rem;
+    color: black;
+    background-color: white;
+    border: 2px solid orange;
+    border-radius: 10px;
+
+    input[type=text] {
+      width: 100%;
+      margin: 1rem 0;
+    }
+
+    textarea {
+      width: 100%;
+      height: 5rem;
+      margin: 1rem 0;
+    }
+  }
+}
