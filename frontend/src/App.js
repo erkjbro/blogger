@@ -6,7 +6,6 @@ import Home from './site/pages/Home';
 import Loader from './shared/components/UIKit/Loader/Loader';
 import { AuthContext } from './shared/context/AuthContext';
 
-// import Blogs from './blog/pages/Blogs';
 const Blogs = lazy(() => import('./blog/pages/Blogs'));
 const BlogDetails = lazy(() => import('./blog/pages/BlogDetails'));
 const EditBlog = lazy(() => import('./blog/pages/EditBlog'));
@@ -21,9 +20,10 @@ const App = () => {
         <Route path="/" exact component={Home} />
         <Route path="/blogs" exact component={Blogs} />
         <Route path="/blogs/:blogId" exact component={BlogDetails} />
-        {!token ? <Route path="/auth" exact component={Auth} /> : null}
-        {!!token ? <Route path="/new-blog" exact component={EditBlog} /> : null}
+        {!!token ? <Route path="/blog/new" exact component={EditBlog} /> : null}
+        {!!token ? <Route path="/blog/edit/:blogId" exact render={() => <EditBlog editMode />} /> : null}
         {!!token ? <Route path="/:userId/profile" component={Profile} /> : null}
+        {!token ? <Route path="/auth" exact component={Auth} /> : null}
         <Redirect to="/" />
       </Switch>
   );

@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
+import { AuthContext } from '../../shared/context/AuthContext';
 import './BlogDetails.scss';
 
 const BlogDetails = () => {
   const [blog, setBlog] = useState();
+  const { userId, token } = useContext(AuthContext);
+
   const { blogId } = useParams();
+
   const {
     isLoading,
     error,
@@ -21,14 +25,14 @@ const BlogDetails = () => {
   useEffect(() => {
     (async () => {
       try {
-        const resData = await sendRequest(`blogs/${blogId}`);
+        const { data } = await sendRequest(`blogs/${blogId}`);
 
-        if (resData) {
-          const createdAt = new Date(resData.data.createdAt).toLocaleString("en-US");
-          const updatedAt = new Date(resData.data.updatedAt).toLocaleString("en-US");
+        if (data) {
+          const createdAt = new Date(data.createdAt).toLocaleString("en-US");
+          const updatedAt = new Date(data.updatedAt).toLocaleString("en-US");
 
           setBlog({
-            ...resData.data,
+            ...data,
             createdAt,
             updatedAt
           });
@@ -43,13 +47,20 @@ const BlogDetails = () => {
     <>
       {error && <ErrorMessage message={error} onClick={clearError} />}
       {isLoading && <Loader />}
-      {blog && (
+      {!isLoading && blog && (
         <div className="blog__details">
           <h1>{blog.title}</h1>
           <h4>Author: {blog.creator.name}</h4>
           <h6>Last updated: {blog.updatedAt}</h6>
           <p>{blog.content}</p>
           <code>Written on: {blog.createdAt}</code>
+          {token && blog.creator._id === userId ? (
+            <span>
+              <Link to={`/blog/edit/${blogId}`}>
+                Edit Blog
+              </Link>
+            </span>
+          ) : null}
         </div>
       )}
     </>

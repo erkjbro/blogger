@@ -15,7 +15,7 @@ const Navbar = () => {
           <NavLink
             exact
             activeClassName={"active"}
-            to={"/new-blog"}
+            to={"/blog/new"}
           >
             New Blog
           </NavLink>

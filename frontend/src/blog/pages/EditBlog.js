@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import Loader from '../../shared/components/UIKit/Loader/Loader';
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
@@ -14,12 +14,16 @@ const initialFormState = {
   content: {
     value: ''
   }
-}
+};
 
 const EditBlog = (props) => {
-  const history = useHistory();
-  const { token } = useContext(AuthContext);
+  const { editMode } = props;
+
   const [blog, setBlog] = useState(initialFormState);
+  const { token } = useContext(AuthContext);
+
+  const history = useHistory();
+  const { blogId } = useParams();
 
   const {
     isLoading,
@@ -28,18 +32,39 @@ const EditBlog = (props) => {
     sendRequest
   } = useFetch(process.env.REACT_APP_BACKEND_URL);
 
-  useEffect(() => document.title = "New Blog | VOB", []);
+  useEffect(() => document.title = `${editMode ? "Edit" : "New"} Blog | VOB`, [editMode]);
+
+  useEffect(() => {
+    if (editMode && blogId) {
+      (async () => {
+        const { data } = await sendRequest(`blogs/${blogId}`);
+
+        setBlog({
+          ...initialFormState,
+          title: {
+            value: data.title
+          },
+          content: {
+            value: data.content
+          }
+        });
+      })()
+    } else {
+      setBlog({ ...initialFormState });
+    }
+  }, [editMode, blogId, sendRequest]);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const { title, content } = blog;
-    const resPath = `blogs`;
+    const reqPath = editMode ? `blogs/${blogId}` : blog;
+    const reqMethod = editMode ? "PATCH" : "POST";
 
     try {
-      const resData = await sendRequest(
-        resPath,
-        "POST",
+      await sendRequest(
+        reqPath,
+        reqMethod,
         JSON.stringify({
           title: title.value,
           content: content.value
@@ -50,11 +75,10 @@ const EditBlog = (props) => {
         }
       );
 
-      // Success Message
-      console.log(resData.data);
+      // [Success Message Goes Here...]
 
       // Redirect
-      history.push('/');
+      history.push('/blogs');
     } catch (err) {
       console.error(err.message);
     }
@@ -66,7 +90,11 @@ const EditBlog = (props) => {
       {isLoading && <Loader />}
       {!isLoading && (
         <div className="edit__blog">
-          <h1>Write a New Blog!</h1>
+          {!editMode ? (
+            <h1>Write Your New Blog!</h1>
+          ) : (
+            <h1>Edit Your Blog!</h1>
+          )}
           <form onSubmit={handleFormSubmit} className="edit__blog--form">
             <label>
               Title
