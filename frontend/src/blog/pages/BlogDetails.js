@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
@@ -11,6 +11,7 @@ const BlogDetails = () => {
   const [blog, setBlog] = useState();
   const { userId, token } = useContext(AuthContext);
 
+  const history = useHistory();
   const { blogId } = useParams();
 
   const {
@@ -43,6 +44,24 @@ const BlogDetails = () => {
     })()
   }, [sendRequest, blogId]);
 
+  const handleDeleteBlog = async () => {
+    try {
+      await sendRequest(
+        `blogs/${blogId}`,
+        "DELETE",
+        null,
+        {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      );
+
+      history.push('/blogs');
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <>
       {error && <ErrorMessage message={error} onClick={clearError} />}
@@ -59,6 +78,9 @@ const BlogDetails = () => {
               <Link to={`/blog/edit/${blogId}`}>
                 Edit Blog
               </Link>
+              <button onClick={handleDeleteBlog}>
+                Delete Blog
+              </button>
             </span>
           ) : null}
         </div>
