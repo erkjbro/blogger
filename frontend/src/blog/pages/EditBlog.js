@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Loader from '../../shared/components/UIKit/Loader/Loader';
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
@@ -7,7 +7,7 @@ import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './EditBlog.scss';
 
-const formData = {
+const initialFormState = {
   title: {
     value: ''
   },
@@ -17,18 +17,47 @@ const formData = {
 }
 
 const EditBlog = (props) => {
-  // eslint-disable-next-line
+  const history = useHistory();
   const { token } = useContext(AuthContext);
-  const [blog, setBlog] = useState(formData);
-  // eslint-disable-next-line
-  const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
+  const [blog, setBlog] = useState(initialFormState);
+
+  const {
+    isLoading,
+    error,
+    clearError,
+    sendRequest
+  } = useFetch(process.env.REACT_APP_BACKEND_URL);
 
   useEffect(() => document.title = "New Blog | VOB", []);
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(blog);
+    const { title, content } = blog;
+    const resPath = `blogs`;
+
+    try {
+      const resData = await sendRequest(
+        resPath,
+        "POST",
+        JSON.stringify({
+          title: title.value,
+          content: content.value
+        }),
+        {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      );
+
+      // Success Message
+      console.log(resData.data);
+
+      // Redirect
+      history.push('/');
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 
   return (
