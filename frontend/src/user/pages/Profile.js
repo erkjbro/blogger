@@ -9,6 +9,15 @@ import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './Profile.scss';
 
+const initialFormState = {
+  name: {
+    value: ''
+  },
+  email: {
+    value: ''
+  }
+};
+
 const Profile = () => {
   const [user, setUser] = useState();
   const { token, logout } = useContext(AuthContext);
@@ -33,12 +42,34 @@ const Profile = () => {
 
         document.title = `${data.name}'s Profile | VOB`;
 
-        setUser(data);
+        const { name, email, ...rest } = data;
+
+        setUser({
+          ...rest,
+          ...initialFormState,
+          name: {
+            value: name
+          },
+          email: {
+            value: email
+          }
+        });
       } catch (err) {
         console.error(err.message);
       }
     })()
   }, [userId, token, sendRequest]);
+
+  const handleUserEdit = async (event) => {
+    event.preventDefault();
+
+    try {
+      console.log("User was edited!");
+      console.log(user);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   const handleUserDelete = async () => {
     try {
@@ -67,7 +98,13 @@ const Profile = () => {
             <ViewProfile user={user} url={url} />
           </Route>
           <Route path={`${path}/edit`} >
-            <EditProfile user={user} url={url} onUserDelete={handleUserDelete} />
+            <EditProfile
+              user={user}
+              setUser={setUser}
+              url={url}
+              onUserEdit={handleUserEdit}
+              onUserDelete={handleUserDelete}
+            />
           </Route>
         </Switch>
       )}
