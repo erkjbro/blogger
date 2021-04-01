@@ -1,3 +1,5 @@
+@import 'styles/colors';
+
 .edit__profile {
   display: flex;
   flex-direction: column;
@@ -5,12 +7,34 @@
   align-items: center;
 
   a {
-    background-color: white;
+    color: map-get($colors, secondary);
     width: fit-content;
     padding: 0.5rem;
+
+    &:hover {
+      color: map-get($colors, primary);
+    }
   }
 
-  span {
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0.5rem;
+
+    .primary__email {
+      cursor: not-allowed;
+      background-color: gray;
+    }
+
+    input {
+      margin: 0.5rem;
+      padding: 0.2rem;
+    }
+
+    button {
+      width: fit-content;
+      margin: 1rem;
+    }
   }
 }
