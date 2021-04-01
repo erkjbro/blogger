@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import Loader from '../../shared/components/UIKit/Loader/Loader';
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
+import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './EditBlog.scss';
@@ -39,15 +39,17 @@ const EditBlog = (props) => {
       (async () => {
         const { data } = await sendRequest(`blogs/${blogId}`);
 
-        setBlog({
-          ...initialFormState,
-          title: {
-            value: data.title
-          },
-          content: {
-            value: data.content
-          }
-        });
+        if (data) {
+          setBlog({
+            ...initialFormState,
+            title: {
+              value: data.title
+            },
+            content: {
+              value: data.content
+            }
+          });
+        }
       })()
     } else {
       setBlog({ ...initialFormState });
@@ -58,6 +60,7 @@ const EditBlog = (props) => {
     event.preventDefault();
 
     const { title, content } = blog;
+
     const reqPath = editMode ? `blogs/${blogId}` : `blogs`;
     const reqMethod = editMode ? "PATCH" : "POST";
 
@@ -75,9 +78,6 @@ const EditBlog = (props) => {
         }
       );
 
-      // [Success Message Goes Here...]
-
-      // Redirect
       history.push('/blogs');
     } catch (err) {
       console.error(err.message);

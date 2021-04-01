@@ -1,15 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams, useRouteMatch, useHistory, Switch, Route } from 'react-router-dom';
+import { useHistory, useParams, useRouteMatch, Route, Switch } from 'react-router-dom';
 
+import EditProfile from '../components/EditProfile';
+import ViewProfile from '../components/ViewProfile';
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
-import ViewProfile from '../components/ViewProfile';
-import EditProfile from '../components/EditProfile';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './Profile.scss';
 
-let initialUserData;
+let fetchedData;
 const initialFormState = {
   name: {
     value: ''
@@ -20,14 +20,19 @@ const initialFormState = {
 };
 
 const Profile = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(initialFormState);
   const { token, logout } = useContext(AuthContext);
 
+  const history = useHistory();
   const { userId } = useParams();
   const { path, url } = useRouteMatch();
-  const history = useHistory();
 
-  const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
+  const {
+    isLoading,
+    error,
+    clearError,
+    sendRequest
+  } = useFetch(process.env.REACT_APP_BACKEND_URL);
 
   useEffect(() => document.title = 'Profile | VOB', []);
 
@@ -43,12 +48,11 @@ const Profile = () => {
 
         document.title = `${data.name}'s Profile | VOB`;
 
-        initialUserData = data;
+        fetchedData = data;
         const { name, email, ...rest } = data;
 
         setUser({
           ...rest,
-          ...initialFormState,
           name: {
             value: name
           },
@@ -66,7 +70,7 @@ const Profile = () => {
     event.preventDefault();
 
     const body = {
-      ...initialUserData,
+      ...fetchedData,
       name: user.name.value
     };
 
@@ -78,8 +82,8 @@ const Profile = () => {
         "PATCH",
         JSON.stringify(body),
         {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         }
       );
 
