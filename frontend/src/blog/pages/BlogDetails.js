@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
@@ -74,7 +74,7 @@ const BlogDetails = () => {
           <p>{blog.content}</p>
           <code>Written on: {blog.createdAt}</code>
           {token && blog.creator._id === userId ? (
-            <span>
+            <span className="blog__details--controls">
               <Link to={`/blog/edit/${blogId}`}>
                 Edit Blog
               </Link>

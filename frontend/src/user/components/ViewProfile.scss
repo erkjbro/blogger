@@ -1,0 +1,26 @@
+@import 'styles/colors';
+
+.view__profile {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  a {
+    color: map-get($colors, secondary);
+    width: fit-content;
+    padding: 0.5rem;
+
+    &:hover {
+      color: map-get($colors, primary);
+    }
+  }
+
+  span {
+    margin: 0.5rem;
+  }
+
+  td {
+    padding: 0.2rem 1rem;
+    text-align: left;
+  }
+}

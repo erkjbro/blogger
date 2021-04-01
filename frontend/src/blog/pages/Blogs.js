@@ -8,6 +8,7 @@ import './Blogs.scss';
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
+
   const {
     isLoading,
     error,
@@ -20,10 +21,10 @@ const Blogs = () => {
   useEffect(() => {
     (async () => {
       try {
-        const resData = await sendRequest('blogs');
+        const { data } = await sendRequest('blogs');
 
-        if (resData) {
-          setBlogs(resData.data);
+        if (data) {
+          setBlogs(data);
         }
       } catch (err) {
         console.error(err.message);
@@ -35,7 +36,7 @@ const Blogs = () => {
     <div className="blogs">
       {error && <ErrorMessage message={error} onClick={() => clearError(null)} />}
       {isLoading && <Loader />}
-      {blogs.length > 0 ? (
+      {!isLoading && blogs.length > 0 ? (
         <BlogList blogs={blogs} />
       ) : !isLoading ? (
         <h1>No blogs...</h1>

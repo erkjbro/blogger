@@ -22,7 +22,6 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            exact
             activeClassName={"active"}
             to={`/${userId}/profile`}
           >
