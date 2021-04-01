@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams, useRouteMatch, Switch, Route } from 'react-router-dom';
+import { useParams, useRouteMatch, useHistory, Switch, Route } from 'react-router-dom';
 
 import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
 import Loader from '../../shared/components/UIKit/Loader/Loader';
@@ -11,10 +11,11 @@ import './Profile.scss';
 
 const Profile = () => {
   const [user, setUser] = useState();
-  const { token } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
 
   const { userId } = useParams();
   const { path, url } = useRouteMatch();
+  const history = useHistory();
 
   const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
 
@@ -39,14 +40,35 @@ const Profile = () => {
     })()
   }, [userId, token, sendRequest]);
 
+  const handleUserDelete = async () => {
+    try {
+      await sendRequest(
+        `users/${userId}`,
+        "DELETE",
+        null,
+        { "Authorization": `Bearer ${token}` }
+      );
+
+      logout();
+
+      history.push("/");
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <>
       {error && <ErrorMessage message={error} onClick={clearError} />}
       {isLoading && <Loader />}
       {!isLoading && (
         <Switch>
-          <Route path={path} exact render={() => <ViewProfile user={user} url={url} />} />
-          <Route path={`${path}/edit`} render={() => <EditProfile user={user} url={url} />} />
+          <Route path={path} exact >
+            <ViewProfile user={user} url={url} />
+          </Route>
+          <Route path={`${path}/edit`} >
+            <EditProfile user={user} url={url} onUserDelete={handleUserDelete} />
+          </Route>
         </Switch>
       )}
     </>

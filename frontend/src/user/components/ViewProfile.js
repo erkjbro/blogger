@@ -10,6 +10,9 @@ const ViewProfile = (props) => {
       {user ? (
         <>
           <h1>{user.name}'s Profile</h1>
+          <span>
+            <Link to={`${url}/edit`}>Edit Profile</Link>
+          </span>
           <table>
             <tbody>
               <tr>
@@ -22,10 +25,6 @@ const ViewProfile = (props) => {
               </tr>
             </tbody>
           </table>
-          <span>
-            <Link to={`${url}/edit`}>Edit</Link>
-            <button>Delete Account</button>
-          </span>
         </>
       ) : null}
     </div>
