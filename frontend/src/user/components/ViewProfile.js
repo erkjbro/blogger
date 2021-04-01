@@ -25,7 +25,7 @@ const ViewProfile = (props) => {
               </tr>
               <tr>
                 <td>Number of Blogs:</td>
-                <td>{user.blogs.length}</td>
+                <td>{user.blogs ? user.blogs.length : null}</td>
               </tr>
             </tbody>
           </table>
