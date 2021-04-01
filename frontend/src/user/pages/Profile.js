@@ -9,6 +9,7 @@ import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './Profile.scss';
 
+let initialUserData;
 const initialFormState = {
   name: {
     value: ''
@@ -42,6 +43,7 @@ const Profile = () => {
 
         document.title = `${data.name}'s Profile | VOB`;
 
+        initialUserData = data;
         const { name, email, ...rest } = data;
 
         setUser({
@@ -63,9 +65,25 @@ const Profile = () => {
   const handleUserEdit = async (event) => {
     event.preventDefault();
 
+    const body = {
+      ...initialUserData,
+      name: user.name.value
+    };
+
+    console.log(body);
+
     try {
-      console.log("User was edited!");
-      console.log(user);
+      await sendRequest(
+        `users/${userId}`,
+        "PATCH",
+        JSON.stringify(body),
+        {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      );
+
+      history.push(url);
     } catch (err) {
       console.error(err.message);
     }

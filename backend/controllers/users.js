@@ -288,26 +288,29 @@ export const patchUser = async (req, res, next) => {
 
   // Update user data
   user.name = name;
-  try {
-    const existingUser = await User.findOne({ email });
 
-    if (existingUser) {
+  if (email !== user.email) {
+
+    try {
+      const existingUser = await User.findOne({ email });
+
+      if (existingUser) {
+        const error = new HttpError(
+          'Email already in use; could not be changed.',
+          422
+        );
+        return next(error);
+      } else {
+        user.email = email;
+      }
+    } catch (err) {
       const error = new HttpError(
-        'Email already in use; could not be changed.',
-        422
+        'Something went wrong!',
+        500
       );
       return next(error);
-    } else {
-      user.email = email;
     }
-  } catch (err) {
-    const error = new HttpError(
-      'Something went wrong!',
-      500
-    );
-    return next(error);
   }
-
 
   // Save updated user
   try {
