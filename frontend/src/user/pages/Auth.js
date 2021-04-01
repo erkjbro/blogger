@@ -6,7 +6,7 @@ import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import './Auth.scss';
 
-const formData = {
+const initialFormState = {
   name: {
     value: ''
   },
@@ -22,10 +22,10 @@ const Auth = () => {
   const { login } = useContext(AuthContext);
   const { isLoading, error, clearError, sendRequest } = useFetch(process.env.REACT_APP_BACKEND_URL);
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const [form, setForm] = useState(formData);
+  const [form, setForm] = useState(initialFormState);
 
   useEffect(() => document.title = `${isLoginMode ? "Login" : "Signup"} | VOB`, [isLoginMode]);
-  useEffect(() => setForm({ ...formData }), [isLoginMode]);
+  useEffect(() => setForm({ ...initialFormState }), [isLoginMode]);
 
   const handleAuthSubmit = async (event) => {
     event.preventDefault();
