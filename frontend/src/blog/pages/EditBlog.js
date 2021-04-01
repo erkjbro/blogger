@@ -58,7 +58,7 @@ const EditBlog = (props) => {
     event.preventDefault();
 
     const { title, content } = blog;
-    const reqPath = editMode ? `blogs/${blogId}` : blog;
+    const reqPath = editMode ? `blogs/${blogId}` : `blogs`;
     const reqMethod = editMode ? "PATCH" : "POST";
 
     try {
