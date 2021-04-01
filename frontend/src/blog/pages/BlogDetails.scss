@@ -39,4 +39,39 @@
     text-indent: 2rem;
     text-align: left;
   }
+
+  .blog__details--controls {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+
+    a {
+      margin: 0.5rem;
+      color: map-get($colors, secondary);
+
+      &:hover {
+        color: map-get($colors, primary);
+      }
+    }
+
+    button {
+      margin: 0.5rem;
+      padding: 0.2rem 1rem;
+      color: map-get($colors, error);
+      border: 2px solid map-get($colors, error);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px map-get($colors, error);
+      font-size: 1rem;
+      font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+        color: map-get($colors, light);
+        border-color: map-get($colors, light);
+        background-color: map-get($colors, error);
+        box-shadow: 0 2px 8px map-get($colors, light);
+      }
+    }
+  }
 }
