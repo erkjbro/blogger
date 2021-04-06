@@ -1,0 +1,8 @@
+.page__layout {
+  width: 100%;
+  min-height: calc(100vh - 5rem);
+  display: inherit;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
