@@ -1,9 +1,8 @@
 @import 'styles/colors';
+@import 'styles/variables';
 
 .edit__blog {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @extend .page__layout;
 
   .edit__blog--form {
     display: flex;

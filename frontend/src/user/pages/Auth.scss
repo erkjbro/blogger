@@ -1,11 +1,8 @@
 @import 'styles/colors';
+@import 'styles/variables';
 
 .auth {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
+  @extend .page__layout;
 
   .toggle {
     margin: 1rem;
