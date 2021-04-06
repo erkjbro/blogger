@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 
 import BlogList from '../components/BlogList/BlogList';
-import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
-import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
+import { ErrorMessage, Loader } from '../../shared/components/UIKit';
 import './Blogs.scss';
 
 const Blogs = () => {

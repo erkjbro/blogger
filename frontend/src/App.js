@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Navbar from './shared/components/Navigation/Navbar';
 import Home from './site/pages/Home';
-import Loader from './shared/components/UIKit/Loader/Loader';
 import { AuthContext } from './shared/context/AuthContext';
+import { Loader } from './shared/components/UIKit';
 
 const Blogs = lazy(() => import('./blog/pages/Blogs'));
 const BlogDetails = lazy(() => import('./blog/pages/BlogDetails'));

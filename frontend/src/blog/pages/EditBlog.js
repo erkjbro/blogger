@@ -1,10 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
-import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
+import { ErrorMessage, Loader } from '../../shared/components/UIKit';
 import './EditBlog.scss';
 
 const initialFormState = {

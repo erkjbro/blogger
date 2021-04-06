@@ -1,9 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 
-import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
-import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
+import { ErrorMessage, Loader } from '../../shared/components/UIKit';
 import './Auth.scss';
 
 const initialFormState = {
