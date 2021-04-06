@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Card from '../../../../shared/components/UIKit/Card/Card';
+import { Card } from '../../../../shared/components/UIKit';
 import './BlogItem.scss';
 
 const BlogItem = (props) => {
