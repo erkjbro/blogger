@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import Card from '../../../../shared/components/UIKit/Card/Card';
 import './BlogItem.scss';
 
 const BlogItem = (props) => {
@@ -14,7 +15,7 @@ const BlogItem = (props) => {
   const updatedAt = new Date(props.updatedAt).toLocaleString("en-US");
 
   return (
-    <li className="blog__item">
+    <Card className="blog__item">
       <Link to={`/blogs/${_id}`}>
         <h2>{title}</h2>
         <h5>Created by: {creator.name}</h5>
@@ -24,7 +25,7 @@ const BlogItem = (props) => {
           <code>Last updated: {updatedAt}</code>
         </span>
       </Link>
-    </li>
+    </Card>
   );
 };
 

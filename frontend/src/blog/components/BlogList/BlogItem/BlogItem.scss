@@ -1,21 +1,6 @@
 @import 'styles/colors';
 
 .blog__item {
-  min-height: 15rem;
-  width: 30rem;
-  margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  font-size: 1.2rem;
-  list-style: none;
-  overflow: hidden;
-  color: initial;
-  background-color: map-get($colors, light);
-  border: 2px solid map-get($colors, primary);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 10px;
-
   &:hover {
     color: map-get($colors, primary);
     background-color: map-get($colors, dark);
