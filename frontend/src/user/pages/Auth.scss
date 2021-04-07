@@ -4,7 +4,56 @@
 .auth {
   @extend .page__layout;
 
-  .toggle {
+  h2 {
+    padding: 0.2rem 4rem;
+    border: 2px solid transparent;
+    border-bottom-color: map-get($colors, secondary);
+    border-radius: 10px;
+  }
+
+  .auth__card {
+    width: 22rem;
+    max-width: 90vw;
+    margin: 1rem;
+    padding: 2rem 3rem;
+    justify-content: center;
+
+    .auth__form {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin: 0.2rem;
+        padding: 0.2rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      button {
+        margin: 2rem 0 0 0;
+        padding: 0.2rem 2rem;
+        width: fit-content;
+        display: inline-flex;
+        align-self: center;
+        justify-self: center;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: map-get($colors, dark);
+        color: map-get($colors, primary);
+        border: 2px solid map-get($colors, pimary);
+        border-radius: 8px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: map-get($colors, primary);
+          color: map-get($colors, dark);
+          border-color: map-get($colors, dark);
+        }
+      }
+    }
+  }
+
+  .auth__mode--toggle {
     margin: 1rem;
     padding: 0.5rem 2rem;
     font-size: 1rem;
@@ -20,57 +69,6 @@
       color: map-get($colors, primary);
       border-color: map-get($colors, secondary);
       box-shadow: 0 2px 8px map-get($colors, secondary-shadow);
-    }
-  }
-
-  form {
-    width: 22rem;
-    max-width: 90vw;
-    margin: 1rem;
-    padding: 2rem 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    text-align: left;
-    font-size: 1.2rem;
-    color: map-get($colors, dark);
-    background-color: map-get($colors, light);
-    border: 2px solid map-get($colors, primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 10px;
-
-    h2,
-    h4 {
-      margin: 0;
-      align-self: center;
-    }
-
-    label {
-      margin: 0.2rem;
-      padding: 0.2rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    button {
-      margin: 2rem 0 0 0;
-      padding: 0.2rem 2rem;
-      width: fit-content;
-      display: inline-flex;
-      align-self: center;
-      font-size: 1rem;
-      font-weight: bold;
-      background-color: map-get($colors, dark);
-      color: map-get($colors, primary);
-      border: 2px solid map-get($colors, pimary);
-      border-radius: 8px;
-
-      &:hover {
-        cursor: pointer;
-        background-color: map-get($colors, primary);
-        color: map-get($colors, dark);
-        border-color: map-get($colors, dark);
-      }
     }
   }
 }
