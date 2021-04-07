@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import './Notification.scss';
 
-export const Backdrop = (props) => {
+export const Notification = (props) => {
   const {
     className,
     styles,
