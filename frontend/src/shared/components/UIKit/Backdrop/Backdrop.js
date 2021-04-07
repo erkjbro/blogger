@@ -1,20 +1,19 @@
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 
-import './Notification.scss';
+import './Backdrop.scss';
 
 export const Backdrop = (props) => {
   const {
     className,
     styles,
     onClick,
-    children,
     ...rest
   } = props;
 
   const classes = clsx(
     {
-      uikit__notification: true,
+      uikit__backdrop: true,
       transparent: false,
       opaque: false
     },
@@ -22,16 +21,12 @@ export const Backdrop = (props) => {
   );
 
   return createPortal(
-    (
-      <div
-        className={classes}
-        styles={styles}
-        onClick={onClick}
-        {...rest}
-      >
-        {children}
-      </div>
-    ),
+    <div
+      className={classes}
+      styles={styles}
+      onClick={onClick}
+      {...rest}
+    ></div>,
     document.getElementById('backdrop-hook')
   );
 };
