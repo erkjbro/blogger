@@ -15,16 +15,16 @@ const AuthProvider = (props) => {
     setToken(token);
     setIsAuth(true);
 
-    const tokenExp = expiration || new Date(new Date().getTime() + 1000 * 60 * 60);
+    const expirationTime = expiration || new Date(new Date().getTime() + 1000 * 60 * 60);
 
-    setTokenExpiration(tokenExp);
+    setTokenExpiration(expirationTime);
 
     localStorage.setItem(
       'vobUserData',
       JSON.stringify({
         uid,
         token,
-        tokenExpiration: tokenExp.toISOString()
+        tokenExpiration: expirationTime.toISOString()
       })
     );
   }, []);
@@ -36,19 +36,15 @@ const AuthProvider = (props) => {
     setIsAuth(false);
 
     localStorage.removeItem("vobUserData");
+
+    console.log("Logout completed succesfully!");
   }, []);
 
   useEffect(() => {
     try {
-      const storedData = JSON.parse(localStorage.getItem("vobUserData"));
+      const { uid, token, tokenExpiration } = JSON.parse(localStorage.getItem("vobUserData"));
 
-      if (
-        storedData &&
-        storedData.uid &&
-        storedData.token &&
-        new Date(storedData.tokenExpiration) < new Date()) {
-        const { uid, token, tokenExpiration } = storedData;
-
+      if (token && new Date(tokenExpiration) > new Date()) {
         login({
           uid,
           token,
