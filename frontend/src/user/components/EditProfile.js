@@ -38,7 +38,9 @@ const EditProfile = (props) => {
         </form>
       </Card>
       <span>
-        <button style={{ color: 'red' }} onClick={onUserDelete}>Delete Your Account</button>
+        <button className="edit__profile--delete-btn" onClick={onUserDelete}>
+          Delete Your Account
+        </button>
       </span>
     </div>
   );

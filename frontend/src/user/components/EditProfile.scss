@@ -41,7 +41,40 @@
 
       button {
         margin: 1rem;
+        padding: 0.2rem 2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        color: map-get($colors, light);
+        background-color: map-get($colors, dark);
+        border: 2px solid map-get($colors, secondary);
+        border-radius: 10px;
+
+        &:hover {
+          cursor: pointer;
+          color: map-get($colors, dark);
+          background-color: map-get($colors, primary);
+          border-color: map-get($colors, dark);
+        }
       }
+    }
+  }
+
+  .edit__profile--delete-btn {
+    margin: 0.5rem;
+    padding: 0.2rem 1rem;
+    color: map-get($colors, error);
+    border: 2px solid map-get($colors, error);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px map-get($colors, error);
+    font-size: 1rem;
+    font-weight: bold;
+
+    &:hover {
+      cursor: pointer;
+      color: map-get($colors, light);
+      border-color: map-get($colors, light);
+      background-color: map-get($colors, error);
+      box-shadow: 0 2px 8px map-get($colors, light);
     }
   }
 }
