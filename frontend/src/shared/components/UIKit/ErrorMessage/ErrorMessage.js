@@ -1,7 +1,7 @@
 
 import './ErrorMessage.scss';
 
-const ErrorMessage = (props) => {
+export const ErrorMessage = (props) => {
   const { message, onClick } = props;
 
   return (
@@ -15,5 +15,3 @@ const ErrorMessage = (props) => {
     </div>
   );
 };
-
-export { ErrorMessage };

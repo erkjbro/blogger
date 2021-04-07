@@ -1,9 +1,7 @@
 import './Loader.scss';
 
-const Loader = () => (
+export const Loader = () => (
   <div className="loader">
     Loading...
   </div>
 );
-
-export { Loader };

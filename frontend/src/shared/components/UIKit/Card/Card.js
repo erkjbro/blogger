@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import './Card.scss';
 
-const Card = (props) => {
+export const Card = (props) => {
   const {
     className,
     styles,
@@ -27,5 +27,3 @@ const Card = (props) => {
     </div>
   );
 };
-
-export { Card };
