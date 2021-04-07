@@ -1,13 +1,16 @@
+import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
+import { CSSTransition } from 'react-transition-group';
 
+import { Backdrop } from '..';
 import './Modal.scss';
 
-export const Backdrop = (props) => {
+const ModalOverlay = (props) => {
   const {
     className,
     styles,
-    onClick,
+    header,
     children,
     ...rest
   } = props;
@@ -28,12 +31,36 @@ export const Backdrop = (props) => {
       <div
         className={classes}
         styles={styles}
-        onClick={onClick}
         {...rest}
       >
-        {children}
+        <header className="uikit__modal--header">
+          <h2>{header}</h2>
+        </header>
+        <div className="uikit__modal--content">
+          {children}
+        </div>
       </div>
     ),
     document.getElementById('modal-hook')
+  );
+};
+
+export const Modal = (props) => {
+  const nodeRef = useRef(null);
+
+  return (
+    <>
+      {props.show && <Backdrop onClick={props.onCancel} />}
+      <CSSTransition
+        nodeRef={nodeRef}
+        in={props.show}
+        mountOnEnter
+        unmountOnExit
+        timeout={200}
+        classNames="uikit__modal"
+      >
+        <ModalOverlay {...props} />
+      </CSSTransition>
+    </>
   );
 };
