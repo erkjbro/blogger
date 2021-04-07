@@ -17,17 +17,30 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
     - auth with jwts
   * Database Connection - MongoDB (Atlas)
 
+- Build out the client UIKit
+  * Form Elements
+    - Button
+    - Input
+    - TextArea
+  * Card
+    - FormCard ?
+  * Backdrop
+  * Notification
+  * Modal
+  * Component Variants (square, primary, secondary, etc.)
+  * Some Responsive Updates
+
+- Testing
+  * Create unit tests for frontend and backend
+
+- Configure AWS Architecture
+  * eb cli deployment
+  * amplify frontend
+
 ### Feature Backlog
 - Form Updates
   * Formik Conversion
-  * Form Elements for UIKit
-
-- Build out the UIKit
-  * modal
-  * error modal
-  * backdrop
-  * responsive updates
-  * animations
+  * Validation
 
 - Auth Improvements
   * Confirm password for signup
@@ -48,7 +61,12 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
     - Store pdfs in S3 bucket? Prefer to delete them.
 
 - User Model Improvements
-  * Make user profiles more realistic and comparable to other apps. User Bio, picture, social links, alternate email, etc.
+  * Make user profiles more realistic and comparable to other apps.
+    - User Bio
+    - Picture / Avatar
+    - Social Links
+    - Alternate Email
+    - ...rest
 
 - Blog Model Improvements
   * Content should probably be an array of data. Allow users to add
@@ -60,17 +78,13 @@ A blogging app. Starting with a simple monolithic MERN structure and then iterat
   * Security Headers
   * ...rest
 
-- Configure AWS Architecture
-  * eb cli deployment
-  * amplify frontend
-
 - Dockerize app
 
 - Implement caching strategy using Redis
   * Redis docker container for dev
   * Redis ElastiCache for prod
 
-- Testing everywhere!
+- Improve Testing
   * unit & integration?
   * e2e?
 
@@ -125,10 +139,10 @@ component within their respective directories.
 # DevOps Info
 > Development, Staging, and Production Info?
 
-Nothing for now! The plan is to use Amplify for the web client and more of AWS for the backend architecture.
+Nothing setup yet. Planning to use AWS Amplify for the frontend and AWS EB for the backend.
 
 # Collaborators
 
 | Name | Role | Contact | Timezone |
 | --- | --- | --- | --- |
-| Erik J Brown | Developer | erkjbro@erikjbrown.tech | USA (GMT-5) |
+| Erik J Brown | Everything | erkjbro@erikjbrown.tech | USA (GMT-5) |
