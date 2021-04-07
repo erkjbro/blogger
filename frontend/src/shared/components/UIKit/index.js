@@ -1,4 +1,8 @@
 export {
+  Backdrop
+} from './Backdrop/Backdrop';
+
+export {
   Card
 } from './Card/Card';
 
@@ -9,3 +13,11 @@ export {
 export {
   Loader
 } from './Loader/Loader';
+
+export {
+  Modal
+} from './Modal/Modal';
+
+export {
+  Notification
+} from './Notification/Notification';
