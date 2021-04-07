@@ -47,16 +47,14 @@ const Auth = () => {
     }
 
     try {
-      const resData = await sendRequest(
+      const { data } = await sendRequest(
         `users/${route}`,
         'POST',
         JSON.stringify(body),
         { 'Content-Type': 'application/json' }
       );
 
-      console.log(resData.message);
-
-      const { userId, token } = resData.data;
+      const { userId, token } = data;
 
       login({
         uid: userId,
