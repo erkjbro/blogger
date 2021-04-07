@@ -77,7 +77,7 @@ const Auth = () => {
         <div className="auth">
           <h2>Authentication</h2>
           <Card className="auth__card">
-            <form className="auth__form" onSubmit={handleAuthSubmit}>
+            <form className="auth__card--form" onSubmit={handleAuthSubmit}>
               {!isLoginMode && (
                 <label>
                   Name
