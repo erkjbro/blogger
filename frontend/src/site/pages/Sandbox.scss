@@ -3,4 +3,22 @@
 
 .sandbox {
   @extend .page__layout;
+
+  hr {
+    width: 100%;
+    color: map-get($colors, primary);
+  }
+
+  div {
+    margin: 1rem;
+  }
+
+  .sandbox__buttons {
+    display: flex;
+    flex-flow: column wrap;
+
+    span {
+      margin: 0.2rem;
+    }
+  }
 }
