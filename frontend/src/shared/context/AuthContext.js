@@ -42,7 +42,7 @@ const AuthProvider = (props) => {
 
   useEffect(() => {
     try {
-      const { uid, token, tokenExpiration } = JSON.parse(localStorage.getItem("vobUserData"));
+      const { uid, token, tokenExpiration } = JSON.parse(localStorage.getItem("vobUserData")) || {};
 
       if (token && new Date(tokenExpiration) > new Date()) {
         login({
