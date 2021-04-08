@@ -35,16 +35,16 @@ const Sandbox = () => {
         <hr />
 
         <div className="sandbox__modal">
-          <button onClick={handleModalShow}>
+          <Button onClick={handleModalShow}>
             Show Modal
-          </button>
+          </Button>
         </div>
         <hr />
 
         <div className="sandbox__notification">
-          <button onClick={handleNotificationShow}>
+          <Button inverse onClick={handleNotificationShow}>
             Show Notification
-          </button>
+          </Button>
         </div>
         <hr />
 
@@ -62,6 +62,16 @@ const Sandbox = () => {
           <span>
             <Button danger onClick={() => console.log("Danger Clicked!")}>
               Danger Button
+            </Button>
+          </span>
+          <span>
+            <Button href="localhost:3000/">
+              Anchor Button
+            </Button>
+          </span>
+          <span>
+            <Button inverse to="/blogs">
+              Link Button
             </Button>
           </span>
         </div>
