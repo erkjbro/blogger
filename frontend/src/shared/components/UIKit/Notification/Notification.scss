@@ -1,14 +1,16 @@
 @import 'styles/colors';
 
 .uikit__notification {
+  cursor: pointer;
   z-index: 100;
   position: fixed;
   top: 22vh;
   left: 30%;
   width: 40%;
   background: map-get($colors, light);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border: 2px solid map-get($colors, primary);
   border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 1rem;
   color: initial;
 }
