@@ -1,13 +1,17 @@
+import { useRef } from 'react';
 import { createPortal } from 'react-dom';
-import clsx from 'clsx';
 
+import clsx from 'clsx';
+import { CSSTransition } from 'react-transition-group';
+
+import { Backdrop } from '..';
 import './Notification.scss';
 
-export const Notification = (props) => {
+const NotificationOverlay = (props) => {
   const {
     className,
     styles,
-    onClick,
+    onCancel,
     children,
     ...rest
   } = props;
@@ -28,12 +32,32 @@ export const Notification = (props) => {
       <div
         className={classes}
         styles={styles}
-        onClick={onClick}
+        onClick={onCancel}
         {...rest}
       >
         {children}
       </div>
     ),
     document.getElementById('notification-hook')
+  );
+};
+
+export const Notification = (props) => {
+  const nodeRef = useRef(null);
+
+  return (
+    <>
+      {props.show && <Backdrop onClick={props.onCancel} />}
+      <CSSTransition
+        nodeRef={nodeRef}
+        in={props.show}
+        mountOnEnter
+        unmountOnExit
+        timeout={200}
+        classNames="uikit__notification"
+      >
+        <NotificationOverlay {...props} />
+      </CSSTransition>
+    </>
   );
 };
