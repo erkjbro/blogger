@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import clsx from 'clsx';
@@ -6,7 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import './Notification.scss';
 
-const NotificationOverlay = (props) => {
+const NotificationOverlay = forwardRef((props, ref) => {
   const {
     className,
     styles,
@@ -29,6 +29,7 @@ const NotificationOverlay = (props) => {
   return createPortal(
     (
       <div
+        ref={ref}
         className={classes}
         styles={styles}
         onClick={onCancel}
@@ -39,7 +40,7 @@ const NotificationOverlay = (props) => {
     ),
     document.getElementById('notification-hook')
   );
-};
+});
 
 export const Notification = (props) => {
   const nodeRef = useRef(null);
@@ -53,7 +54,7 @@ export const Notification = (props) => {
       timeout={200}
       classNames="uikit__notification"
     >
-      <NotificationOverlay {...props} />
+      <NotificationOverlay ref={nodeRef} {...props} />
     </CSSTransition>
   );
 };

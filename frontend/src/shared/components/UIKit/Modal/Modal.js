@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import clsx from 'clsx';
@@ -7,7 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Backdrop } from '..';
 import './Modal.scss';
 
-const ModalOverlay = (props) => {
+const ModalOverlay = forwardRef((props, ref) => {
   const {
     className,
     styles,
@@ -30,6 +30,7 @@ const ModalOverlay = (props) => {
   return createPortal(
     (
       <div
+        ref={ref}
         className={classes}
         styles={styles}
         {...rest}
@@ -44,7 +45,7 @@ const ModalOverlay = (props) => {
     ),
     document.getElementById('modal-hook')
   );
-};
+});
 
 export const Modal = (props) => {
   const nodeRef = useRef(null);
@@ -60,7 +61,7 @@ export const Modal = (props) => {
         timeout={200}
         classNames="uikit__modal"
       >
-        <ModalOverlay {...props} />
+        <ModalOverlay ref={nodeRef} {...props} />
       </CSSTransition>
     </>
   );
