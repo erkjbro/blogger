@@ -39,8 +39,8 @@
 
   &:hover,
   &:active {
-    background-color: map-get($colors, primary);
-    color: map-get($colors, dark);
+    background-color: transparent;
+    color: map-get($colors, primary);
     border-color: map-get($colors, primary);
   }
 }
