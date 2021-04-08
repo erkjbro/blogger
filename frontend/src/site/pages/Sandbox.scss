@@ -1,0 +1,6 @@
+@import 'styles/colors';
+@import 'styles/variables';
+
+.sandbox {
+  @extend .page__layout;
+}

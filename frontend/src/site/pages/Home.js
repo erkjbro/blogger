@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../shared/context/AuthContext';
 
@@ -52,7 +53,10 @@ const Home = () => {
         run the app yourself.
       </p>
       <p>
-        Thank you for your time! Hopefully you enjoy browsing my little app! &#x1F9D0;
+        Thank you for your time! Hopefully you enjoy browsing my little app!&nbsp;
+        <Link to="/sandbox">
+          &#x1F9D0;
+        </Link>
       </p>
     </div>
   );
