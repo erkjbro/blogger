@@ -4,7 +4,6 @@ import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 
-import { Backdrop } from '..';
 import './Notification.scss';
 
 const NotificationOverlay = (props) => {
@@ -46,18 +45,15 @@ export const Notification = (props) => {
   const nodeRef = useRef(null);
 
   return (
-    <>
-      {props.show && <Backdrop onClick={props.onCancel} />}
-      <CSSTransition
-        nodeRef={nodeRef}
-        in={props.show}
-        mountOnEnter
-        unmountOnExit
-        timeout={200}
-        classNames="uikit__notification"
-      >
-        <NotificationOverlay {...props} />
-      </CSSTransition>
-    </>
+    <CSSTransition
+      nodeRef={nodeRef}
+      in={props.show}
+      mountOnEnter
+      unmountOnExit
+      timeout={200}
+      classNames="uikit__notification"
+    >
+      <NotificationOverlay {...props} />
+    </CSSTransition>
   );
 };
