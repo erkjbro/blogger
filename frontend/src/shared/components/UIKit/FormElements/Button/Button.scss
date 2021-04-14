@@ -1,0 +1,61 @@
+@import 'styles/colors';
+
+.uikit__form-elements--button {
+  width: fit-content;
+  padding: 0.5rem 1.5rem;
+  display: inline-flex;
+  background-color: map-get($colors, primary);
+  color: map-get($colors, dark);
+  border: 1px solid map-get($colors, primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover,
+  &:active {
+    background-color: map-get($colors, secondary);
+    border-color: map-get($colors, secondary);
+  }
+
+  &:disabled,
+  &:hover:disabled,
+  &:active:disabled {
+    background: #ccc;
+    color: #979797;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.button--inverse {
+  background-color: transparent;
+  color: map-get($colors, secondary);
+  border-color: map-get($colors, secondary);
+
+  &:hover,
+  &:active {
+    background-color: transparent;
+    color: map-get($colors, primary);
+    border-color: map-get($colors, primary);
+  }
+}
+
+.button--danger {
+  background-color: map-get($colors, light);
+  color: map-get($colors, error);
+  border-color: map-get($colors, error);
+  box-shadow: 0 2px 8px map-get($colors, error);
+
+  &:hover,
+  &:active {
+    background-color: map-get($colors, error);
+    color: map-get($colors, light);
+    border-color: map-get($colors, light);
+    box-shadow: 0 2px 8px map-get($colors, light);
+  }
+}

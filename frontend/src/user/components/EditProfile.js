@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
 
+import { Card } from '../../shared/components/UIKit';
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './EditProfile.scss';
 
 const EditProfile = (props) => {
@@ -8,34 +9,40 @@ const EditProfile = (props) => {
   return (
     <div className="edit__profile">
       <h1>Edit Profile</h1>
-      <Link to={url}>View Profile</Link>
-      <form onSubmit={onUserEdit}>
-        <label>
-          Name:
+      <Button inverse to={url}>
+        View Profile
+      </Button>
+      <Card className="edit__profile--card">
+        <form className="edit__profile--form" onSubmit={onUserEdit}>
+          <label>
+            Name:
           <input
-            value={user.name.value}
-            onChange={event => setUser({
-              ...user,
-              name: {
-                value: event.target.value
-              }
-            })}
-          />
-        </label>
-        <label>
-          Email:
+              value={user.name.value}
+              onChange={event => setUser({
+                ...user,
+                name: {
+                  value: event.target.value
+                }
+              })}
+            />
+          </label>
+          <label>
+            Email:
           <input
-            className="primary__email"
-            value={user.email.value}
-            onChange={() => { console.warn("Primary email can't be changed.") }}
-          />
-        </label>
-        <button type="submit">
-          Save Changes
-        </button>
-      </form>
+              className="primary__email"
+              value={user.email.value}
+              onChange={() => { console.warn("Primary email can't be changed.") }}
+            />
+          </label>
+          <Button type="submit" className="edit__profile--button">
+            Save Changes
+          </Button>
+        </form>
+      </Card>
       <span>
-        <button style={{ color: 'red' }} onClick={onUserDelete}>Delete Your Account</button>
+        <Button danger onClick={onUserDelete}>
+          Delete Your Account
+        </Button>
       </span>
     </div>
   );

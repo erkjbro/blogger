@@ -1,5 +1,7 @@
 import './Loader.scss';
 
-const Loader = () => (<div className="loader">Loading...</div>);
-
-export default Loader;
+export const Loader = () => (
+  <div className="loader">
+    Loading...
+  </div>
+);

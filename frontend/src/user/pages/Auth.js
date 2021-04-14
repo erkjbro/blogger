@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 
-import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
-import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
+import { Card, ErrorMessage, Loader } from '../../shared/components/UIKit';
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './Auth.scss';
 
 const initialFormState = {
@@ -48,16 +48,14 @@ const Auth = () => {
     }
 
     try {
-      const resData = await sendRequest(
+      const { data } = await sendRequest(
         `users/${route}`,
         'POST',
         JSON.stringify(body),
         { 'Content-Type': 'application/json' }
       );
 
-      console.log(resData.message);
-
-      const { userId, token } = resData.data;
+      const { userId, token } = data;
 
       login({
         uid: userId,
@@ -77,59 +75,63 @@ const Auth = () => {
       {!isLoading && (
         <div className="auth">
           <h2>Authentication</h2>
-          <form onSubmit={handleAuthSubmit}>
-            {!isLoginMode && (
+          <Card className="auth__card">
+            <form className="auth__card--form" onSubmit={handleAuthSubmit}>
+              {!isLoginMode && (
+                <label>
+                  Name
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="Name"
+                    value={form.name.value}
+                    onChange={(event) => setForm({
+                      ...form,
+                      name: {
+                        value: event.target.value
+                      }
+                    })}
+                  />
+                </label>
+              )}
               <label>
-                Name
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Name"
-                  value={form.name.value}
+                E-Mail
+            <input
+                  id="email"
+                  type="email"
+                  placeholder="E-Mail"
+                  value={form.email.value}
                   onChange={(event) => setForm({
                     ...form,
-                    name: {
+                    email: {
                       value: event.target.value
                     }
                   })}
                 />
               </label>
-            )}
-            <label>
-              E-Mail
+              <label>
+                Password
             <input
-                id="email"
-                type="email"
-                placeholder="E-Mail"
-                value={form.email.value}
-                onChange={(event) => setForm({
-                  ...form,
-                  email: {
-                    value: event.target.value
-                  }
-                })}
-              />
-            </label>
-            <label>
-              Password
-            <input
-                id="password"
-                type="password"
-                placeholder="Password"
-                value={form.password.value}
-                onChange={(event) => setForm({
-                  ...form,
-                  password: {
-                    value: event.target.value
-                  }
-                })}
-              />
-            </label>
-            <button type="submit">{!isLoginMode ? "SIGNUP" : "LOGIN"}</button>
-          </form>
-          <button className="toggle" onClick={handleAuthToggle}>
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  value={form.password.value}
+                  onChange={(event) => setForm({
+                    ...form,
+                    password: {
+                      value: event.target.value
+                    }
+                  })}
+                />
+              </label>
+              <Button type="submit" className="form__submit--btn">
+                {!isLoginMode ? "SIGNUP" : "LOGIN"}
+              </Button>
+            </form>
+          </Card>
+          <Button inverse  onClick={handleAuthToggle}>
             SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
-          </button>
+          </Button>
         </div>
       )}
     </>

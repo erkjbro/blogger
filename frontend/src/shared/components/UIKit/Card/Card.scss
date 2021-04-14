@@ -1,0 +1,17 @@
+@import 'styles/colors';
+
+.uikit__card {
+  min-height: 15rem;
+  width: 30rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 1.2rem;
+  overflow: hidden;
+  color: initial;
+  background-color: map-get($colors, light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border: 2px solid map-get($colors, primary);
+  border-radius: 10px;
+}

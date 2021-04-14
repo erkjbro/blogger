@@ -1,0 +1,52 @@
+@import 'styles/colors';
+
+.uikit__modal {
+  z-index: 100;
+  position: fixed;
+  top: 22vh;
+  left: 10%;
+  width: 80%;
+  background: map-get($colors, light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+
+  .uikit__modal--header {
+    width: 100%;
+    padding: 1rem 0.5rem;
+    background: map-get($colors, primary);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    h2 {
+      margin: 0.5rem;
+    }
+  }
+
+  .uikit__modal--content {
+    padding: 1rem;
+    height: 12rem;
+    color: initial;
+  }
+}
+
+.uikit__modal-enter {
+  transform: translateY(-10rem);
+  opacity: 0;
+}
+
+.uikit__modal-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 200ms;
+}
+
+.uikit__modal-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.uikit__modal-exit-active {
+  transform: translateY(-10rem);
+  opacity: 0;
+  transition: all 200ms;
+}

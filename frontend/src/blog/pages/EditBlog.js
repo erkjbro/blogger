@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
-import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
+import { Card, ErrorMessage, Loader } from '../../shared/components/UIKit';
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './EditBlog.scss';
 
 const initialFormState = {
@@ -95,40 +95,44 @@ const EditBlog = (props) => {
           ) : (
             <h1>Edit Your Blog!</h1>
           )}
-          <form onSubmit={handleFormSubmit} className="edit__blog--form">
-            <label>
-              Title
-              <br />
-              <input
-                type="text"
-                id="title"
-                placeholder="Title your blog..."
-                value={blog.title.value}
-                onChange={(event) => setBlog({
-                  ...blog,
-                  title: {
-                    value: event.target.value
-                  }
-                })}
-              />
-            </label>
-            <label>
-              Content
-              <br />
-              <textarea
-                id="content"
-                placeholder="Start writing your blog..."
-                value={blog.content.value}
-                onChange={(event) => setBlog({
-                  ...blog,
-                  content: {
-                    value: event.target.value
-                  }
-                })}
-              />
-            </label>
-            <button type="submit">Save Blog</button>
-          </form>
+          <Card className="edit__blog--card">
+            <form onSubmit={handleFormSubmit} className="edit__blog--form">
+              <label>
+                Title
+                <br />
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="Title your blog..."
+                  value={blog.title.value}
+                  onChange={(event) => setBlog({
+                    ...blog,
+                    title: {
+                      value: event.target.value
+                    }
+                  })}
+                />
+              </label>
+              <label>
+                Content
+                <br />
+                <textarea
+                  id="content"
+                  placeholder="Start writing your blog..."
+                  value={blog.content.value}
+                  onChange={(event) => setBlog({
+                    ...blog,
+                    content: {
+                      value: event.target.value
+                    }
+                  })}
+                />
+              </label>
+              <Button type="submit" className="form__button">
+                Save Blog
+              </Button>
+            </form>
+          </Card>
         </div>
       )}
     </>

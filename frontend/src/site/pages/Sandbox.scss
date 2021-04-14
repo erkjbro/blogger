@@ -1,0 +1,46 @@
+@import 'styles/colors';
+@import 'styles/variables';
+
+.sandbox {
+  @extend .page__layout;
+
+  hr {
+    width: 100%;
+    color: map-get($colors, primary);
+  }
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  div {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 1rem;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin: 0.5rem;
+      padding: 0.2rem;
+
+      input,
+      textarea {
+        padding: 0.2rem 0.5rem;
+      }
+    }
+  }
+
+  .sandbox__modal--button,
+  .sandbox__notification--button {
+    align-self: center;
+    margin: 0;
+  }
+
+  .sandbox__buttons {
+    flex-flow: row wrap;
+    span {
+      margin: 0.2rem;
+    }
+  }
+}

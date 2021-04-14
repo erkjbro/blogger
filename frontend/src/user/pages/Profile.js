@@ -3,10 +3,9 @@ import { useHistory, useParams, useRouteMatch, Route, Switch } from 'react-route
 
 import EditProfile from '../components/EditProfile';
 import ViewProfile from '../components/ViewProfile';
-import ErrorMessage from '../../shared/components/UIKit/ErrorMessage/ErrorMessage';
-import Loader from '../../shared/components/UIKit/Loader/Loader';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
+import { ErrorMessage, Loader } from '../../shared/components/UIKit';
 import './Profile.scss';
 
 let fetchedData;

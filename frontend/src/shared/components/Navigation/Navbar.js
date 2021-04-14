@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
+import { Button } from '../UIKit/FormElements';
 import './Navbar.scss';
 
 const Navbar = () => {
@@ -29,9 +30,9 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <button onClick={logout}>
+          <Button inverse onClick={logout}>
             LOGOUT
-          </button>
+          </Button>
         </li>
       </>
     );
