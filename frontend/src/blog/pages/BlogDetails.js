@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import { ErrorMessage, Loader } from '../../shared/components/UIKit';
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './BlogDetails.scss';
 
 const BlogDetails = () => {
@@ -74,12 +75,12 @@ const BlogDetails = () => {
           <code>Written on: {blog.createdAt}</code>
           {token && blog.creator._id === userId ? (
             <span className="blog__details--controls">
-              <Link to={`/blog/edit/${blogId}`}>
+              <Button inverse className="controls__button" to={`/blog/edit/${blogId}`}>
                 Edit Blog
-              </Link>
-              <button onClick={handleDeleteBlog}>
+              </Button>
+              <Button danger className="controls__button" onClick={handleDeleteBlog}>
                 Delete Blog
-              </button>
+              </Button>
             </span>
           ) : null}
         </div>
