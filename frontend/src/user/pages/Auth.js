@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import { Card, ErrorMessage, Loader } from '../../shared/components/UIKit';
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './Auth.scss';
 
 const initialFormState = {
@@ -123,12 +124,14 @@ const Auth = () => {
                   })}
                 />
               </label>
-              <button type="submit">{!isLoginMode ? "SIGNUP" : "LOGIN"}</button>
+              <Button type="submit" className="form__submit--btn">
+                {!isLoginMode ? "SIGNUP" : "LOGIN"}
+              </Button>
             </form>
           </Card>
-          <button className="auth__mode--toggle" onClick={handleAuthToggle}>
+          <Button inverse  onClick={handleAuthToggle}>
             SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
-          </button>
+          </Button>
         </div>
       )}
     </>

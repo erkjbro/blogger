@@ -29,46 +29,10 @@
         flex-direction: column;
       }
 
-      button {
-        margin: 2rem 0 0 0;
-        padding: 0.2rem 2rem;
-        width: fit-content;
-        display: inline-flex;
+      .form__submit--btn {
         align-self: center;
-        justify-self: center;
-        font-size: 1rem;
-        font-weight: bold;
-        background-color: map-get($colors, dark);
-        color: map-get($colors, primary);
-        border: 2px solid map-get($colors, pimary);
-        border-radius: 8px;
-
-        &:hover {
-          cursor: pointer;
-          background-color: map-get($colors, primary);
-          color: map-get($colors, dark);
-          border-color: map-get($colors, dark);
-        }
+        margin-top: 1rem;
       }
-    }
-  }
-
-  .auth__mode--toggle {
-    margin: 1rem;
-    padding: 0.5rem 2rem;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: map-get($colors, light);
-    color: map-get($colors, dark);
-    border: 2px solid map-get($colors, primary);
-    border-radius: 8px;
-
-    &:hover {
-      cursor: pointer;
-      background-color: map-get($colors, dark);
-      color: map-get($colors, primary);
-      border-color: map-get($colors, secondary);
-      box-shadow: 0 2px 8px map-get($colors, secondary-shadow);
     }
   }
 }
