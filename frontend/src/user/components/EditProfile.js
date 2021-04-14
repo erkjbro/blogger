@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 
 import { Card } from '../../shared/components/UIKit';
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './EditProfile.scss';
 
 const EditProfile = (props) => {
@@ -9,7 +9,7 @@ const EditProfile = (props) => {
   return (
     <div className="edit__profile">
       <h1>Edit Profile</h1>
-      <Link to={url}>View Profile</Link>
+      <Button inverse to={url}>View Profile</Button>
       <Card className="edit__profile--card">
         <form className="edit__profile--form" onSubmit={onUserEdit}>
           <label>
@@ -32,15 +32,15 @@ const EditProfile = (props) => {
               onChange={() => { console.warn("Primary email can't be changed.") }}
             />
           </label>
-          <button type="submit">
+          <Button type="submit" className="edit__profile--button">
             Save Changes
-        </button>
+          </Button>
         </form>
       </Card>
       <span>
-        <button className="edit__profile--delete-btn" onClick={onUserDelete}>
+        <Button danger onClick={onUserDelete}>
           Delete Your Account
-        </button>
+        </Button>
       </span>
     </div>
   );
