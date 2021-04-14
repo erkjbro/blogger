@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './ViewProfile.scss';
 
 const ViewProfile = (props) => {
@@ -11,7 +11,7 @@ const ViewProfile = (props) => {
         <>
           <h1>{user.name.value}'s Profile</h1>
           <span>
-            <Link to={`${url}/edit`}>Edit Profile</Link>
+            <Button inverse to={`${url}/edit`}>Edit Profile</Button>
           </span>
           <table>
             <tbody>
