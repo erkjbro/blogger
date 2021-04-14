@@ -1,16 +1,20 @@
 @import 'styles/colors';
+@import 'styles/variables';
 
 .view__profile {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  @extend .page__layout;
+  align-items: stretch;
 
-  span {
-    margin: 0.5rem;
+  table {
+    margin: 1rem;
+
+    td {
+      padding: 0.2rem 1rem;
+      text-align: left;
+    }
   }
 
-  td {
-    padding: 0.2rem 1rem;
-    text-align: left;
+  .view__profile--button {
+    align-self: center;
   }
 }

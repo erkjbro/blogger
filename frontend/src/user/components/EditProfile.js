@@ -9,7 +9,9 @@ const EditProfile = (props) => {
   return (
     <div className="edit__profile">
       <h1>Edit Profile</h1>
-      <Button inverse to={url}>View Profile</Button>
+      <Button inverse to={url}>
+        View Profile
+      </Button>
       <Card className="edit__profile--card">
         <form className="edit__profile--form" onSubmit={onUserEdit}>
           <label>

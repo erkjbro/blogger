@@ -10,9 +10,9 @@ const ViewProfile = (props) => {
       {user ? (
         <>
           <h1>{user.name.value}'s Profile</h1>
-          <span>
-            <Button inverse to={`${url}/edit`}>Edit Profile</Button>
-          </span>
+          <Button inverse className="view__profile--button" to={`${url}/edit`}>
+            Edit Profile
+          </Button>
           <table>
             <tbody>
               <tr>
