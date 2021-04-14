@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import useFetch from '../../shared/hooks/useFetch';
 import { AuthContext } from '../../shared/context/AuthContext';
 import { Card, ErrorMessage, Loader } from '../../shared/components/UIKit';
+import { Button } from '../../shared/components/UIKit/FormElements';
 import './EditBlog.scss';
 
 const initialFormState = {
@@ -98,7 +99,7 @@ const EditBlog = (props) => {
             <form onSubmit={handleFormSubmit} className="edit__blog--form">
               <label>
                 Title
-              <br />
+                <br />
                 <input
                   type="text"
                   id="title"
@@ -114,7 +115,7 @@ const EditBlog = (props) => {
               </label>
               <label>
                 Content
-              <br />
+                <br />
                 <textarea
                   id="content"
                   placeholder="Start writing your blog..."
@@ -127,7 +128,9 @@ const EditBlog = (props) => {
                   })}
                 />
               </label>
-              <button type="submit">Save Blog</button>
+              <Button type="submit" className="form__button">
+                Save Blog
+              </Button>
             </form>
           </Card>
         </div>

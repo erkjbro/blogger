@@ -24,24 +24,8 @@
         margin: 1rem 0;
       }
 
-      button {
-        padding: 0.2rem 2rem;
-        width: fit-content;
-        display: inline-flex;
+      .form__button {
         align-self: center;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: map-get($colors, light);
-        background-color: map-get($colors, dark);
-        border: 2px solid map-get($colors, secondary);
-        border-radius: 10px;
-
-        &:hover {
-          cursor: pointer;
-          color: map-get($colors, dark);
-          background-color: map-get($colors, primary);
-          border-color: map-get($colors, dark);
-        }
       }
     }
   }
