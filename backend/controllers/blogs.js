@@ -52,7 +52,7 @@ export const getBlogById = async (req, res, next) => {
   // Return data
   res.status(200).json({
     message: "Fetched blog by id successfully!",
-    data: blog.toObject({ getter: true })
+    data: blog.toObject({ getters: true })
   });
 };
 
