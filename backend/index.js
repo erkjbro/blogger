@@ -10,13 +10,9 @@ const PORT = Number(process.env.PORT) || 5000;
 const app = express();
 
 try {
+  console.log(process.env.DB_URI)
   await mongoose.connect(
-    process.env.DB_URI,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    }
+    process.env.DB_URI
   );
 } catch (err) {
   throw new HttpError(err, 503);
