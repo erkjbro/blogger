@@ -112,3 +112,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Jetbrains
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/verbose-octo-blog.iml
